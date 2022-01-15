@@ -1,0 +1,108 @@
+// works . Runtime O(n)
+function solution(number){
+  // convert the number to a roman numeral
+  const romans = [
+    ['M', 1000],
+    ['CM', 900],
+    ['D', 500],
+    ['CD', 400],
+    ['C', 100],
+    ['XC', 90],
+    ['L', 50],
+    ['XL', 40],
+    ['X', 10],
+    ['IX', 9],
+    ['V', 5],
+    ['IV', 4],
+    ['I', 1]
+  ];
+  let result = '';
+  let i = 0;
+  for (let i = 0; i < romans.length; i++) {
+    let char = romans[i];
+    while (number - char[1] >= 0) {
+    result += char[0];
+    number -= char[1];
+    }
+  }
+  return result;
+}
+
+
+
+// works. runtime O(n)
+function solution(number) {
+  let result = '';
+  const roman = {
+    m: 1000,
+   cm: 900,
+    d: 500,
+   cd: 400,
+    c: 100,
+   xc: 90,
+    l: 50,
+   xl: 40,
+    x: 10,
+   ix: 9,
+    v: 5,
+   iv: 4,
+    i: 1 
+  }
+  if (typeof number !== 'number') return false 
+  if (!number) return null
+  if (number - 4000 > 0) return null
+  while (number - roman.m >= 0) {
+    result += 'm';
+    number -= roman.m;
+  }
+  while (number - roman.cm >= 0) {
+    result += 'cm';
+    number -= roman.cm;
+  }
+  while (number - roman.d >= 0) {
+    result += 'd';
+    number -= roman.d;
+  }
+  while (number - roman.cd >= 0) {
+    result += 'cd';
+    number -= roman.cd;
+  }
+  while (number - roman.c >= 0) {
+    result += 'c';
+    number -= roman.c;
+    if (number === 0) return result.toUpperCase();
+  }
+  while (number - roman.xc >= 0) {
+    result += 'xc';
+    number -= roman.xc;
+  }
+  while (number - roman.l >= 0) {
+    result += 'l';
+    number -= roman.l;
+  }
+  while (number - roman.xl >= 0) {
+    result += 'xl';
+    number -= roman.xl;
+  }
+  while (number - roman.x >= 0) {
+    result += 'x';
+    number -= roman.x;
+  }
+  while (number - roman.ix >= 0) {
+    result += 'ix';
+    number -= roman.ix;
+  }
+  while (number - roman.v >= 0) {
+    result += 'v';
+    number -= roman.v;
+  }
+  while (number - roman.iv >= 0) {
+    result += 'iv';
+    number -= roman.iv;
+  }
+  while (number - roman.i >= 0) {
+    result += 'i';
+    number -= roman.i
+  }
+  return result.toUpperCase();
+}

@@ -1,0 +1,16 @@
+Leetcode (01/14/2022 14:31 Accepted 315 ms 49.5 MB javascript)
+
+Given an integer x, return true if x is palindrome integer.
+An integer is a palindrome when it reads the same backward as forward.
+For example, 121 is a palindrome while 123 is not.
+
+function paliNum(num) {
+  let s = '' + num;
+  for (let i = 0, j = s.length - 1; i < s.length; i++, j--) {
+    let charI = s[i];
+    let charJ = s[j];
+    if (charI != charJ) return false;
+    if (i >= j) return true;
+  }
+  return null
+}

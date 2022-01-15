@@ -1,0 +1,128 @@
+/*
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+I can be placed before V (5) and X (10) to make 4 and 9. 
+X can be placed before L (50) and C (100) to make 40 and 90. 
+C can be placed before D (500) and M (1000) to make 400 and 900.
+Given a roman numeral, convert it to an integer.
+
+ 
+
+Example 1:
+
+Input: s = "III"
+Output: 3
+Explanation: III = 3.
+Example 2:
+
+Input: s = "LVIII"
+Output: 58
+Explanation: L = 50, V= 5, III = 3.
+Example 3:
+
+Input: s = "MCMXCIV"
+Output: 1994
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+ 
+
+Constraints:
+
+1 <= s.length <= 15
+s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+It is guaranteed that s is a valid roman numeral in the range [1, 3999]. */
+
+/* 
+I: str of roman numerals;
+O: num total of roman numerals;
+C: 
+- 1 <= s.length <= 15
+- s contains only roman chars
+- guaranteed s is a valid roman num in the range [1, 3999]
+Q:
+- what if s is not a string?
+- what if s undefined?
+- does range include the defined start and end?
+P:
+- Create an object of roman numerals for convertion;
+- create a num var to contain result = 0;
+- iterate through the s. while iterating, compare to the object and convert
+  by result += the char num value;
+- return result
+Runtime: O(s.length); space: O(1);
+*/
+
+const romanToInt1 = function(s) {
+  if (s.length < 1 || s.length > 15 || typeof s != 'string') return null;	// 7, string => F
+  let roman = { 'M': 1000, 'CM': 900, 'D': 500, 'CD': 400, 'C': 100, 'XC': 90, 'L': 50, 'XL': 40, 'X': 10, 'IX': 9, 'V': 5, 'IV': 4, 'I': 1 };
+  let res = 0;
+  for (let i = 0; i < s.length; i++) {			// i=0		i=1	 i=3	  i=5
+    let charSingle = s[i].toUpperCase();		// 'M'		'C'	 'X'	  'I'
+    let charDouble = (s[i] + s[i+1]).toUpperCase();	// 'MC'		'CM'	 'XC'	  'IV'
+    if (!roman.hasOwnProperty) return null;		// F		F	 F	  F
+    else {
+      if (roman.hasOwnProperty(charDouble)) {		// F		T	 T	  T
+        res += roman[charDouble];			// 		res=1900 res=1990 res=1994
+        i += 1;						// 		i=1+1=2	 i=3+1=4  i=5+1=6
+        continue;					// 		next	 next	  done
+      }
+      else {						// T=>res=1000	-
+        res += roman[charSingle];
+      }
+    }
+  }
+  if (res > 3999) return null								  // F
+  else return res;									  // 1994
+}
+
+/* TEST
+	   0123456 = 7
+let str = 'MCMXCIV'
+*/
+// Note: whiteboarding, missed closing parenthesis in if (roman.hasOwnProperty(charDouble) {
+/* Leetcode Jan 15, 2022
+Success
+Details 
+Runtime: 178 ms, faster than 43.12% of JavaScript online submissions for Roman to Integer.
+Memory Usage: 45.8 MB, less than 29.36% of JavaScript online submissions for Roman to Integer.
+Next challenges:
+Integer to Roman
+Show off your acceptance:
+Time Submitted
+Status
+Runtime
+Memory
+Language
+01/15/2022 08:55	Accepted	178 ms	45.8 MB	javascript
+*/
+
+/* 
+smarter solution, comparing values of key for 'IV' etc. before doing operation to get result
+note: comparing any number to undefined will always return false.
+*/
+
+const romanToInt2 = (s) => {
+  const roman = { 'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 10, 'V': 5, 'I': 1 };
+  if (s.length < 1 || s.length > 15 || typeof s != 'string') return null;
+  let res = 0;
+  for (let i = 0; i < s.length; i++) {
+      let charA = s[i];
+      let charB = s[i+1];
+    if (!roman.hasOwnProperty(s[i])) return null;
+    if (roman[charA] < roman[charB]) res -= roman[charA];
+    else res += roman[charB];
+  }
+  if (res > 3999) return null;
+  return res;
+}

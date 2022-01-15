@@ -1,0 +1,59 @@
+1. Do you give examples? Else my example, fast.
+
+    01234 = 5
+2. 'abcba'
+    0123456 = 7
+   'abcbcba'
+
+3. The big(O) for time would be O(n), and space would be O(1). 
+   Are you ok with that? If not, discuss again on high level.
+
+4. 
+
+Palindrome
+for a string you can use .length and [] to get character.
+
+I: a string
+O: a boolean T/F
+C: 
+
+Example: 
+String: abcba
+abc cba => 21
+123 123
+
+'cba'.indexOf(a) = 2
+'cba'.indexOf(b) = 1
+'cba'.indexOf(c) = 0
+
+ 0123456
+'abcbcba'
+'abc' b 
+
+1. 0 'a' == length-1 = true;
+2. 1 'b' == length-1-- = true . false return false
+3. 2 'c' == length-1-- = true . false return false
+4. 3 'b' == length = true
+
+ 012345
+'abccba'
+Plan:
+1. We have to start at the middle
+2. While we iterate [0] to the middle. We do .indexOf to check the other half. The result is sequential
+
+function palindrome(string) {
+  if (typeof string !== 'string') return false;			// true
+  for (let i = 0; i < string.length; i++) {			// 0, a		1, b
+    // for (let j = string.length - 1; j >= 0 ; j--) {		// 4, a True	3, b
+      if (string[i] !== string[j]) {				// pass		
+        return false;						// pass
+      }
+      if (j <= i) {
+        return true;						// pass
+      }
+    // }
+  }
+};
+
+'abcba'
+
