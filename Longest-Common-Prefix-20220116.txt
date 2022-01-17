@@ -1,0 +1,193 @@
+/*
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+ 
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+ 
+
+Constraints:
+
+1 <= strs.length <= 200
+0 <= strs[i].length <= 200
+strs[i] consists of only lower-case English letters.
+*/
+
+/*
+I: arr of strs;
+O: str of common prefix;
+C: 
+Plan:
+- define a tracker;
+- define res arr;
+- iterate through the array;
+- iterate through the strEl;
+---- add track {char: [i, count]};
+
+- for in loop on tracker, find only count = arr.length;
+---- if char[i] = resarr[i] && !resArr[i], reassign resArr[i] = char
+
+- join the arr;
+
+BigO time: O(3N), space: O(N)
+*/
+
+/* 4. next tweak
+Runtime: 122 ms, faster than 18.44% of JavaScript online submissions for Longest Common Prefix.
+Memory Usage: 40.4 MB, less than 51.30% of JavaScript online submissions for Longest Common Prefix.
+
+function longestCommonPrefix(strs) {
+    let res = strs[0].split('');
+    if (strs.length > 200 || res > 200) return null
+    for (let i = 1; i < strs.length; i++) {
+        let s = strs[i].toLowerCase();
+        if (s.length > 200) return null
+        for (let j = 0; j < Math.max(s.length, res.length); j++) {
+            let charA = res[j];
+            let charB = s[j];
+            if (charA != charB) {
+                res = res.splice(0, j);
+                break;
+            }
+        }
+    }
+    return res.join('');
+  }
+*/
+
+/* 3. next tweak
+Runtime: 92 ms, faster than 40.82% of JavaScript online submissions for Longest Common Prefix.
+Memory Usage: 41 MB, less than 23.38% of JavaScript online submissions for Longest Common Prefix.
+
+function longestCommonPrefix(strs) {
+    let res = strs[0];
+    if (strs.length > 200 || res > 200) return null
+    for (let i = 1; i < strs.length; i++) {
+        let s = strs[i].toLowerCase();
+        if (s.length > 200) return null
+        for (let j = 0; j < Math.max(s.length, res.length); j++) {
+            let charA = res[j];
+            let charB = s[j];
+            if (charA != charB) {
+                res = res.slice(0, j);
+                break;
+            }
+        }
+    }
+    return res;
+  }
+*/
+
+/* 2. next tweak.
+Runtime: 187 ms, faster than 5.04% of JavaScript online submissions for Longest Common Prefix.
+Memory Usage: 41.3 MB, less than 13.19% of JavaScript online submissions for Longest Common Prefix.
+
+function longestCommonPrefix(strs) {
+    if (strs.length > 200) return null
+    let track = {};
+    let res = [];
+    for (let i = 0; i < strs.length; i++) {
+        let s = strs[i].toLowerCase();
+        if (s.length > 200) return null
+        for (let j = 0; j < s.length; j++) {
+            let char = s[j];
+            if (!track[j]) {
+                track[j] = [char, 1];
+            }
+            else if (track[j] && track[j][0] === char) {
+                track[j][1] += 1;
+            }
+        }
+    }
+    console.log(track)
+    for (let idx in track) {
+      if (track[idx][1] === strs.length) {
+        res[idx] = track[idx][0];
+      }
+      else break;/*{
+          res[idx] = '';
+          if (res[idx] === '') break;
+      }*/
+    }
+    console.log(res)
+    return res.join('');
+  }
+*/
+
+/* 1. after tweaking vscode and running leetcode submit test 2 times
+Runtime: 264 ms, faster than 5.04% of JavaScript online submissions for Longest Common Prefix.
+Memory Usage: 47.4 MB, less than 5.62% of JavaScript online submissions for Longest Common Prefix.
+
+function longestCommonPrefix(strs) {
+    if (strs.length > 200) return null
+    let track = {};
+    let res = [];
+    for (let i = 0; i < strs.length; i++) {
+        let s = strs[i].toLowerCase();
+        if (s.length > 200) return null
+        for (let j = 0; j < s.length; j++) {
+            let char = s[j];
+            if (!track[j]) {
+                track[j] = [char];
+            }
+            else if (track[j] && track[j][0] === char) {
+                track[j].push(char);
+            }
+        }
+    }
+    console.log(track)
+    for (let idx in track) {
+      if (track[idx].length === strs.length) {
+        res[idx] = track[idx][0];
+      }
+      else {
+          res[idx] = '';
+          if (res[idx] === '') break;
+      }
+    }
+    console.log(res)
+    return res.join('');
+  }
+*/
+
+/* Whiteboarding does not work. Time spent: 1:12:25.44
+function longestCommonPrefix(strs) {
+  if (strs.length > 200) return null
+  let track = {};
+  let res = [];
+  for (let i = 0; i < strs.length; i++) {			 // i=0										i=1
+    let s = strs[i].toLowerCase();				 // s='flower'									s='flow'
+    if (s.length > 200) return null				 // F
+    for (let j = 0; j < s.length; j++) {			 // j=0			j=1	j=2	    j=3		j=4	  j=5		j=0
+      let char = s[j];						 // char='f'		'l'	'o'	    'w'         'e'       'r'		'f'
+      if (!track[char]) {					 // T			T	T	     T	         T         T		F
+        track[char] = [i, 1];					 // track={'f':[0,1], 'l':[0,2], 'o':[0,3], 'w':[0,4], 'e':[0,5], 'r':[0,6]}	
+      }
+      else if (track[char] && track[char][0] === j) {		 // F										T
+	track[char][1] += 1;					 //										'f:[0,2]   'l':[1,2]	
+      }
+    }
+  }
+  for (let char in track) {
+    if (track[char][1] === strs.length && !res[track[char][0]) {
+      res[ track[char][0] ] = char;
+    }
+  }
+  return res.join('');
+}
+*/
+
+/*
+let strs = ['flower', 'flow, 'flight]
+longestCommonPrefix(strs);
+*/

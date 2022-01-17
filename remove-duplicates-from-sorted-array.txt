@@ -1,0 +1,101 @@
+/* Leetcode Jan 17, 2022
+I: sorted array;
+O: sorted array of unique els; !!RETURN the length of array!!
+C: 
+- 0 <= nums.length <= 3 * 10^4
+- -100 <= n <= 100;
+- sorted ascending;
+- sort in place;
+Q:
+- what if array is not array;
+- what if n is not number;
+P:
+- Iterate through the array, because it's sorted, the duplicates would be adjacent to the num;
+- if n at idx = n at [idx + 1], splice at idx+1, 
+- idx -= 1, continue with next iteration;
+- all through to the end;
+- return array;
+BigO = O(nums.length) for time, O(1) for splice, O(1) for space;
+*/
+/* Works. 
+Runtime: 152 ms, faster than 27.83% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+Memory Usage: 42.5 MB, less than 13.22% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+
+var removeDuplicates = function(nums) {
+    if (!Array.isArray(nums) || nums.length > 3 * Math.pow(10, 4)) return null
+    for (let i = 0; i < nums.length; i++) {			// i=0	i=1	     i=2      i=3
+      if (nums[i] < -100 || nums[i] > 100) return null;	// F	F	     F        F
+      if (nums[i] != nums[i+1]) continue;
+      nums.splice(i, 1);
+      i--;
+    }
+  return nums.length;
+};
+*/
+
+/* works
+Runtime: 140 ms, faster than 38.06% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+Memory Usage: 42.2 MB, less than 20.70% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+
+var removeDuplicates = function(nums) {
+    // if (!Array.isArray(nums) || nums.length > 3 * Math.pow(10, 4)) return null;
+    let i = 0;
+    while (i < nums.length) {
+        // if (nums[i] < -100 || nums[i] > 100) return null;
+        if (nums[i] === nums[i+1]) {
+            nums.splice(i, 1);
+            i--;
+        }
+        i++;
+    }
+    return nums.length;
+}
+*/
+
+/*
+Works. Runtime: 148 ms, faster than 31.80% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+Memory Usage: 42.3 MB, less than 16.02% of JavaScript online submissions for Remove Duplicates from Sorted Array.
+*/
+var removeDuplicates = function(nums) {
+    if (!Array.isArray(nums) || nums.length > 3 * Math.pow(10, 4)) return null;
+    let i = 0;
+    while (i < nums.length) {
+        if (nums[i] < -100 || nums[i] > 100) return null;
+        if (nums[i] === nums[i+1]) {
+            nums.splice(i, 1);
+            i--;
+        }
+        i++;
+    }
+    return nums.length;
+}
+
+/* NOT works
+var removeDuplicates = function(nums) {
+    if (!Array.isArray(nums) || nums.length > 3 * Math.pow(10, 4)) return null;
+    let i = 0;
+    while (i < nums.length) {
+        if (nums[i] < -100 || nums[i] > 100) return null;
+        if (nums[i] === nums[i+1]) {
+            nums.splice(i, 1);
+        }
+        i++;
+    }
+    return nums.length;
+}
+*/
+
+/* Whiteboard does not work
+var removeDuplicates = function(nums) {
+    if (!Array.isArray(nums) || nums.length > 3 * Math.pow(10, 4)) return null
+    for (let i = 0; i < nums.length; i++) {			// i=0	i=1	     i=2      i=3
+        if (nums[i] < -100 || nums[i] > 100) return null;	// F	F	     F        F
+      while (nums[i] === nums[i+1]) {				// F	T=>[0,1,2,3] n=2!=3   F
+        nums.splice(i+1, 1);
+      }
+    }
+  return nums;
+};
+*/
+
+[0, 1, 1, 2, 3]

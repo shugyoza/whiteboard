@@ -1,0 +1,139 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf610
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /* leetcode\
+Given a string s containing just the characters '(', ')', '\{', '\}', '[' and ']', determine if the input string is valid.\
+\
+An input string is valid if:\
+\
+Open brackets must be closed by the same type of brackets.\
+Open brackets must be closed in the correct order.\
+ \
+\
+Example 1:\
+\
+Input: s = "()"\
+Output: true\
+Example 2:\
+\
+Input: s = "()[]\{\}"\
+Output: true\
+Example 3:\
+\
+Input: s = "(]"\
+Output: false\
+ \
+\
+Constraints:\
+\
+1 <= s.length <= 104\
+s consists of parentheses only '()[]\{\}'.\
+*/\
+\
+/*\
+I: string of brackets pair;\
+O: bool;\
+C: no method\
+Q: what if s is undefined? an ''? not a typeof string?\
+P:\
+- Create a filter, object is better than str as .indexOf is slower than checking a key;\
+- iterate through s while checking against filter, if not matched, return false right away;\
+- else, at the end of f. return true;\
+runtime = O(s.length), s: O(1);\
+*/\
+/* DOES NOT WORK\
+var isValid = function(s) \{\
+    if (!s || s.length > Math.pow(10, 4)) return null\
+    let check = \{ '(': ')', ')': '(', '[': ']', ']': '[', '\{': '\}', '\}': '\{' \};\
+    for (let i = 0; i < s.length; i++) \{                                            //i=0  i=2  i=4   i=0     i=0\
+        let char = s[i];                                                            //'('  '['  '\{'   '('     '\{'\
+        let pair = s[i+1];                                                          //')'  ']'  '\}'   ']'     '\}' \
+        if (!check.hasOwnProperty(char)) return false;                              //F     F    F    F\
+        if (char != check[pair]) return false;                                      //F     F    F    T => F\
+        if (char == check[pair]) \{                                                  //T     T    T\
+            i += 1;                                                                 //i=1=>D i=3 i=5=>D\
+            continue;\
+        \}\
+    \}\
+    return true;                                                                    //T                     T\
+\};\
+*/\
+\
+/* DOES NOT WORK\
+var isValid = function(s) \{\
+    if (!s || s.length > Math.pow(10, 4)) return null\
+    if (s.length % 2 > 0) return false;\
+    let track = \{ '\{\}': 0, '[]': 0, '()': 0\};\
+    for (let i = 0; i < s.length; i++) \{                                            \
+        let char = s[i]; \
+        if (char == '\{') track['\{\}'] += 1;\
+        if (char == '\}') track['\{\}'] -= 1;\
+        if (char == '[') track['[]'] += 1;\
+        if (char == ']') track['[]'] -= 1;\
+        if (char == '(') track['()'] += 1;\
+        if (char == ')') track['()'] -= 1;\
+    \}\
+    for (let char in track) \{\
+        if (track[char] > 0) return false\
+    \}\
+    return true;\
+\};\
+*/\
+\
+/*\
+Runtime: 120 ms, faster than 20.26% of JavaScript online submissions for Valid Parentheses.\
+Memory Usage: 39.2 MB, less than 63.29% of JavaScript online submissions for Valid Parentheses.\
+*/\
+var isValid = function(s) \{\
+    if (!s || s.length > Math.pow(10, 4)) return null\
+    if (s.length % 2 > 0) return false;\
+    let track = [];\
+    let popped;\
+    for (let i = 0; i < s.length; i++) \{                                            \
+        let char = s[i];\
+        if (char == '[') track.push(']');\
+        if (char == '(') track.push(')');\
+        if (char == '\{') track.push('\}');\
+        if (char == ')' || char == '\}' || char == ']') \{\
+            popped = track.pop();\
+            if (popped != char) return false\
+        \} \
+    \}\
+    return !track.length;\
+\};\
+\
+/* OTHER's solution\
+var isValid = function(s) \{   \
+    const stack = [];\
+    \
+    for (let i = 0 ; i < s.length ; i++) \{\
+        let c = s.charAt(i);\
+        switch(c) \{\
+            case '(': stack.push(')');\
+                break;\
+            case '[': stack.push(']');\
+                break;\
+            case '\{': stack.push('\}');\
+                break;\
+            default:\
+                if (c !== stack.pop()) \{            // default for every iteration is popping\
+                    return false;                   // if the popped != char, return false\
+                \}\
+        \}\
+    \}\
+    \
+    return stack.length === 0\
+\
+*/\
+\
+/*\
+'()'\
+ 012345 = 6\
+'()[]\{\}'\
+'(]'\
+'\{[]\}'\
+*/}

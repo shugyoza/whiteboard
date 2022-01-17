@@ -1,0 +1,110 @@
+/* Leetcode 01/16/2022 10:40 Accepted 122 ms 40.4 MB	javascript
+Runtime: 122 ms, faster than 42.97% of JavaScript online submissions for Two Sum.
+Memory Usage: 40.4 MB, less than 50.66% of JavaScript online submissions for Two Sum.
+White boarding takes 26 mins with two typos and the function does not really ran (first solution)
+
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Example 2:
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+ 
+
+Constraints:
+
+2 <= nums.length <= 104
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+Only one valid answer exists.
+ 
+
+Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+*/
+
+/*
+I: arr of nums, target num;
+O: arr of 2 idx elA + elB = targetNum;
+C: 
+- 2 <= arrNums.length <= 10^4
+- -10^9 <= nums[i] || targetNum <= 10^9
+P:
+- Iterate through arr and put every found num as a key with val [idx, targetNum - num];
+- when a targetNum - num equals a key, return [idx of that key, i];
+Runtime: 0(N), space: O(2)
+*/
+
+// This my solution works, after tweaking in vscode
+function twoSum(nums, targetNum) {
+    let maxLen = Math.pow(10, 4);										//
+    let minNum = Math.pow(-10, 9);									//
+    let maxNum = Math.pow(10, 9);										//
+    if (nums.length < 2 || nums.length > maxLen || targetNum < minNum || targetNum > maxNum) return null;	// F		F	F
+    let track = {};											//
+    for (let i = 0; i < nums.length; i++) {								// i=0		i=1	i=2
+      let num = nums[i];											// n=3		n=2	n=4
+      if (num < minNum || num > maxNum) return null;							// F		F	F
+      else {
+        if (track.hasOwnProperty(targetNum - num)) {							// F		F	[1, 2] done
+            let res = [ track[targetNum - num][0], i]
+            return res;
+          }
+
+        if (!track.hasOwnProperty(num)) {									// T		T	T
+          track[num] = [i, targetNum - num];
+        }								// {3:[0,3], 2:[1, 4], 4:[2, 4]}
+      }
+    }
+  }
+
+/* Does not work with or without the break. Must switch order between if and else if.
+I made a typo on the [ track[targetNum - num][0], i] and closing } on the first else { if
+Reason:
+- Without a break/continue, it will check else if condition after if statement executed. This will break on e.g. target = 3, num = 3, returns [0,0];
+- with break, because if in the loop always met, it will exit loop in the first iteration and never hits the else if that we need;
+- with continue, the funct will iterate through the end without hitting else if because it starts the next iteration without hitting else if
+
+function twoSum(nums, targetNum) {
+  let maxLen = Math.pow(10, 4);										//		
+  let minNum = Math.pow(-10, 9);									//		
+  let maxNum = Math.pow(10, 9);										//		
+  if (nums.length < 2 || nums.length > maxLen || targetNum < minNum || targetNum > maxNum) return null;	// F		F	F
+  let track = {};											//
+  for (let i = 0; i < nums.length; i++) {								// i=0		i=1	i=2
+    let num = nums[i];											// n=3		n=2	n=4
+    if (num < minNum || num > maxNum) return null;							// F		F	F
+    else {
+      if (!track.hasOwnProperty(num)) {									// T		T	T
+        track[num] = [i, targetNum - num];								// {3:[0,3], 2:[1, 4], 4:[2, 4]}
+        break;
+      }	
+      else if (track.hasOwnProperty(targetNum - num)) {							// F		F	[1, 2] done
+        let res = [ track[targetNum - num][0], i];
+        return res;
+      }
+    }
+  }
+}
+*/
+
+/*
+let nums = [3, 2, 4];
+let target = 6;
+twoSum(nums, target);
+*/
