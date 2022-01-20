@@ -1,0 +1,92 @@
+/*
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+ 
+
+Example 1:
+
+Input: nums = [1,3,5,6], target = 5
+Output: 2
+Example 2:
+
+Input: nums = [1,3,5,6], target = 2
+Output: 1
+Example 3:
+
+Input: nums = [1,3,5,6], target = 7
+Output: 4
+ 
+
+Constraints:
+
+1 <= nums.length <= 104
+-104 <= nums[i] <= 104
+nums contains distinct values sorted in ascending order.
+-104 <= target <= 104
+
+//////
+I: array, targetNum;
+O: a num, indexOF where it is, or where it's suppose to be;
+C:
+- 1 <= nums.length <= 10^4
+- -10^4 <= n || target <= 10^4;
+- nums sorted;
+Q: 
+- what if nums is not an array
+- what if targetNum or num is not a number
+P:
+- Do a logN search
+- if nums[length -1 ] < targetNum return -1;
+- else:
+-- define the mid of nums. If mid == targetNum = return mid;
+-- if mid > target, define mid of the first half of arr, and go on repeat process
+-- if mid < target, define mid of the second hal of arr, and go on repeat process
+*/
+
+/*
+Runtime: 158 ms, faster than 5.03% of JavaScript online submissions for Search Insert Position.
+Memory Usage: 39.4 MB, less than 79.00% of JavaScript online submissions for Search Insert Position.
+*/
+
+var searchInsert = (nums, target) => {  // target 10
+    if (target > nums[nums.length - 1]) return nums.length; // F
+    if (target < nums[0]) return 0;                         // F
+    let start = 0;                                          // i0
+    let end = nums.length - 1;                              // i6
+    while (start < end) {                                   // i0<i6 T
+        let mid = Math.floor((start + end) / 2);            // mid=i0+i6/2=i3
+        if (nums[mid] === target) return mid;               // 6==10? F
+        else {
+        if (nums[mid] < target) start = mid + 1;            // 6<10? T, start=i3+1=i4
+        else end = mid - 1;                                      // WE NEED THE EXPLICIT ELSE here
+        }
+    }
+    if (nums[start] < target) return start + 1;             // 10<10 F
+    return start;                                           // 6
+}
+//  0 1 2 3 4 5 6  7
+// [1,2,4,6,8,9,10] 10
+
+//  0 1 2 3 4
+// [1,3,5,6] 5
+
+/* LOOK!
+var searchInsert = (nums, target) => {
+    let end = nums.length - 1;                   // define the end
+    let start = 0;                               // define the start
+    while (start < end) {                        // while start is not equal to end
+        let mid = Math.floor((start + end) / 2); // define mid to be (start + end) / 2. start+end is crucial
+        if (target === nums[mid]) return mid;    // if mid equals to target, return mid
+        else if (target < nums[mid]) {           // else if target is less than the mid num
+            end = mid - 1;                       // establish a new end as mid - 1. No need to include mid, it's checked against target
+        } else {                                 // else
+            start = mid + 1;                     // establish a new start as mid + 1. No need to include mid, checked already
+        }
+    }
+    // return target > nums[start] ? start + 1 : start;
+    if (target > nums[start]) return start + 1;  // when target not found, if target is greater than start num, return start + 1 as its supposed position
+    else return start;                           // else return the start as its supposed position
+}
+*/

@@ -1,0 +1,114 @@
+var addBinary = function(a, b) {
+  let aN = 0;
+  let bN = 0;
+  let mult = 1;
+  for (let i = Math.max(a.length - 1, b.length - 1); i >= 0; i--) {
+    let cA = a[i];
+    let cB = b[i];
+    aN += (cA - 0) * mult;
+    bN += (cB - 0) * mult;
+    mult *= 2
+  }
+  let resN = aN + bN;				// 6
+  let resS = '';				// ''
+  (while resN > 0) {				// 2 > 0 T
+    let j = 0					// j=1
+    while (Math.pow(2, j) <= resN) {		// 2^1=2<=2 T
+      if (Math.pow(2, j) === resN) {		// 2^1=2==2 T
+	resS += '1';				// '11'
+	for (let k = 0; k < j; k++) {		// k=1<1 F
+          resS += '0';				// '110'
+        }
+	return resS;				// return '110' DONE
+      }
+      else if (Math.pow(2, j+1) >= resN) {	// 2^0=1 >=2 F
+        resS += '1';				// '1'
+        resN -= Math.pow(2, j);			// 6-4=2
+      }
+    j++
+    }
+  }
+}
+
+
+// 4
+// 6
+
+
+var addBinary = function(a, b) {
+    if (a === '0' && b === '0') return '0';
+    let aN = 0;
+    let bN = 0;
+    let mult = 1;
+    for (let i = a.length - 1; i >= 0; i--) { // '11' '1' 2
+      let cA = a[i];
+      if (cA) aN += (cA - 0) * mult;
+      mult *= 2;
+    }
+    mult = 1;
+    for (let j = b.length - 1; j >= 0; j--) { // '11' '1' 2
+        let cB = b[j];    // '1'
+        if (cB) bN += (cB - 0) * mult; // 1
+        mult *= 2;
+    }
+    let resN = aN + bN;				            // 21
+    let resS = '';			                    // ''
+    while (resN >= 0) {				            // 1 > 0 T
+        let j = 0					            // j=1
+        if (j === 0 && resS.length > 0) resS += '0'         // '1010'
+        while (Math.pow(2, j) <= resN) {		// 2^1=2<=1 F
+            if (Math.pow(2, j) === resN) {		// 2^0=1==1 T
+                resS += '1';				    // '10101'
+                for (let k = 0; k < j; k++) {	// k=0<0 F
+                    resS += '0';				// '110'
+                }
+                return resS;				// return '10101' DONE
+            }
+            else if (Math.pow(2, j+1) > resN) {	// 2^3=8 > 5 F
+                resS += '1';				    // '101'
+                resN -= Math.pow(2, j);			// 5-4=1
+            }
+            j++
+        }
+    }
+}
+*/
+
+var addBinary = function(a, b) {
+    if (a === '0' && b === '0') return '0';
+    let aN = 0;
+    let bN = 0;
+    let mult = 1;
+    for (let i = a.length - 1; i >= 0; i--) { // '11' '1' 2
+      let cA = a[i];
+      if (cA) aN += (cA - 0) * mult;
+      mult *= 2;    // * base 2
+    }
+    mult = 1;
+    for (let j = b.length - 1; j >= 0; j--) { // '11' '1' 2
+        let cB = b[j];    // '1'
+        if (cB) bN += (cB - 0) * mult; // 1
+        mult *= 2; // * base 2
+    }
+    let resN = aN + bN;
+    let resBin = '';
+    // console.log([aN, bN, resN])
+    while (resN >= 1) {                      // .75 >= 1 F
+        let nBin = '' + Math.ceil(resN % 2); // '1'
+        // console.log(nBin)
+        resBin = nBin + resBin;              // '1100'
+        resN = resN / 2;                     // .75
+    }
+    return resBin;
+}
+
+let b1 = "10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101"
+let b2 = "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011"
+addBinary(b1, b2)
+// console.log(parseInt(b1, 2).toString(16))
+// console.log(parseInt(b2, 2).toString(16))
+// console.log(''+BigInt(parseInt(b1,2)))
+let x = BigInt(parseInt(b1,2));
+let xB = x.toString(2);
+// console.log([xB.length, b1.length])
+// console.log(xB > b1)

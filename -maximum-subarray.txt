@@ -1,0 +1,74 @@
+/*
+I: an array of nums;
+O: a num, max total of any contiguous nums in the array;
+C:
+Q:
+- what if array is not an array
+- what if array.length == 0;
+- what if num is not number
+
+*/
+
+function maxSubArray(nums) {
+    let fin = {};  // {'0':[1,1],'1':[5,3],'2':[1,3],}
+    let count = {} // {'3:[4,3]}
+    for (let i = 0; i < nums.length; i++) {		//i=4 < i=9 => T
+      let num = nums[i];				//n=-1
+      for (let key in count) {				//key='3'
+        let prevSum = count[key][0];			//4
+        let currSum = prevSum + num;			//1+-1=0
+        let prevIdx = count[key][1];			//3
+        if (currSum >= prevSum && i - prevIdx = 1) {	//0>1 F && 3-2=1 T => F
+          count[key] = [ currSum, i ];			//'2':[1,3]
+        }
+	else {
+          fin[key] = [ currSum, prevIdx ];		// fin['0'] = [1,1]
+          delete count[key];				// 
+        }
+      }
+      count[i] = [ num, i ];				// count['3']=[4,3]
+    }
+    let max = 0;
+    for (let key in count) {
+      if (max < count[key][0]) {
+        max = count[key][0];
+      }
+    }
+    for (let key in fin) {
+      if (max < fin[key][0]) {
+        max = fin[key][0]
+      }
+    }
+    console.log(count)
+    return max;
+  }
+
+/*
+ 0  1  2 3  4 5 6  7 8  9
+[-2,1,-3,4,-1,2,1,-5,4]
+
+
+function maxSubArray(A) {
+  var prev = 0;					//0
+  var max = -Number.MAX_VALUE;			//min
+
+  for (var i = 0; i < A.length; i++) {		//i=8, n=4
+    prev = Math.max(prev + A[i], A[i]);		//prev = Math.max(1+4=5, 4) = 5;
+    max = Math.max(max, prev);			//max = Math.max(6, 1) = 6
+  }
+  return max;
+}
+
+i=0: p = -2 vs -2 so -2. m = -2
+i=1: p = -1 or 1 so we forget about prev and start over with p=1 and thus m=1
+i=2: p = -2 or -3 so we add it up and p = -2 and m stays 1
+i=3: p = 2 or 4 so we forget about prev and start over with p=4 and thus m=4
+i=4: p = 3 or -1 so we add it up and p = 3 but m stays 4
+i=5: p = 5 or 2 so we add it up and p = 5 and thus m=5
+i=6: p = 6 or 1 so we add it up and p = 6 and thus m=6
+i=7: p = 1 or -5 so we add it up and p = 1 but m stays m=6
+i=8: p = 5 or 4 so we add it up and p=5 but m stays 6
+
+
+
+*/

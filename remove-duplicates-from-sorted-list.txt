@@ -1,0 +1,60 @@
+/*
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+////////
+
+I: sorted linkedlist;
+O: sorted linkedlist of unique elements;
+C:
+Q:
+- what if linkedlist is undefined
+P: 
+*/
+
+/*
+Runtime: 173 ms, faster than 5.09% of JavaScript online submissions for Remove Duplicates from Sorted List.
+Memory Usage: 40.7 MB, less than 60.30% of JavaScript online submissions for Remove Duplicates from Sorted List.
+*/
+
+var deleteDuplicates = function(head) {
+    if (!head) return null;					// F
+    let currentNode = head;				//
+    while (currentNode) {					// F
+        if (!currentNode.next) return head;			// F
+        if (currentNode.val === currentNode.next.val) { // 3 = 3 => T
+          let toDelete = currentNode.next;
+          currentNode.next = currentNode.next.next;	// 2
+          toDelete.next = null;
+          continue;
+        }
+        currentNode = currentNode.next;			// null
+    }
+    return head;
+  }
+
+/* Does not pass
+var deleteDuplicates = function(head) {
+  if (!head) return;					// F
+  let currentNode = head;				// 
+  while (currentNode) {					// F
+    if (!currentNode.next) return head;			// F
+    else {
+      while (currentNode.val === currentNode.next.val) {// 3 = 3 => T 
+        let toDelete = currentNode.next;		
+        currentNode.next = currentNode.next.next;	// 2
+	toDelete.next = null;
+      }
+      currentNode = currentNode.next;			// null
+    }
+  }
+  return head;
+}
+
+//                                        curr   
+// head: val: 1 next:{ val: 2, next: {val: 3, next: null }}
+
+
+//						     toDelete {val: 3, next: null}}
+//                    toDelete { val: 1, next: null
+
+/*

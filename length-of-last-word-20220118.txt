@@ -1,0 +1,149 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+/* Leetcode
+Given a string s consisting of some words separated by some number of spaces, return the length of the last word in the string.
+
+A word is a maximal substring consisting of non-space characters only.
+
+ 
+
+Example 1:
+
+Input: s = "Hello World"
+Output: 5
+Explanation: The last word is "World" with length 5.
+Example 2:
+
+Input: s = "   fly me   to   the moon  "
+Output: 4
+Explanation: The last word is "moon" with length 4.
+Example 3:
+
+Input: s = "luffy is still joyboy"
+Output: 6
+Explanation: The last word is "joyboy" with length 6.
+ 
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of only English letters and spaces ' '.
+There will be at least one word in s.
+
+////////
+
+I: sentence;
+O: a num => length the last word;
+C: 
+- only english letter and spaces;
+- there'll be at least one word;
+Q:
+- what if typeof s != 'string';
+P:
+- Split the string into an array; O(words)
+- get the length of the string at the tail of the array. O(1)
+
+-iterate backwards from the end of the sentence, and count.
+- if we found a space, return the count; O(chars in the last word), O(1) space
+*/
+
+/*
+Runtime: 87 ms, faster than 37.51% of JavaScript online submissions for Length of Last Word.
+Memory Usage: 38.6 MB, less than 67.24% of JavaScript online submissions for Length of Last Word.
+
+var lengthOfLastWord = function(s) {
+    let sA = s.match(/[^\s+]+/g);
+    return sA[sA.length - 1].length;
+};
+*/
+
+/* does not work when string ended with ' '
+var lengthOfLastWord = (s) => {
+    let count = 0;
+    for (let i = s.length - 1; i >= 0; i--) {
+         if (s[i] === ' ') return count;
+         else {
+        count += 1;
+    }
+  }
+}
+*/
+/*
+Runtime: 72 ms, faster than 80.77% of JavaScript online submissions for Length of Last Word.
+Memory Usage: 39.1 MB, less than 17.65% of JavaScript online submissions for Length of Last Word.
+
+var lengthOfLastWord = (s) => {
+    let eC = '';                                            // 'em'
+    let count = 0;                                          // 2
+    for (let i = s.length - 1; i >= 0; i--) {               // i=4 >= 0 => T
+        if (s[i] === ' ' && eC.length > 0) return count;    // T && T => T => 2
+        else if (s[i] !== ' ') {                            // T
+            count += 1;                                     // 2
+            eC += s[i];                                     // 'em'
+        }
+    }
+    return count;
+}
+*/
+/*
+Runtime: 96 ms, faster than 30.44% of JavaScript online submissions for Length of Last Word.
+Memory Usage: 38.6 MB, less than 67.24% of JavaScript online submissions for Length of Last Word.
+
+var lengthOfLastWord = (s) => {
+    let eC = '';                                            // 'em'
+    for (let i = s.length - 1; i >= 0; i--) {               // i=4 >= 0 => T
+        if (s[i] === ' ' && eC.length > 0) return eC.length;    // T && T => T => 2
+        else if (s[i] !== ' ') {                            // T
+            eC += s[i];                                     // 'em'
+        }
+    }
+    return eC.length;
+}
+*/
+/*
+Runtime: 117 ms, faster than 13.13% of JavaScript online submissions for Length of Last Word.
+Memory Usage: 38.6 MB, less than 75.39% of JavaScript online submissions for Length of Last Word.
+
+var lengthOfLastWord = (s) => {
+    let eC = 0;                                            // 'em'
+    let count = 0
+    for (let i = s.length - 1; i >= 0; i--) {               // i=4 >= 0 => T
+        if (s[i] === ' ' && eC > 0) return count;    // T && T => T => 2
+        else if (s[i] !== ' ') {                            // T
+            eC += 1;                                     // 'em'
+            count += 1;
+        }
+    }
+    return count;
+}
+*/
+
+/*
+01/18/2022 13:06	Accepted	64 ms	38.4 MB	javascript
+01/18/2022 13:04	Accepted	149 ms	38.1 MB	javascript
+Runtime: 64 ms, faster than 97.50% of JavaScript online submissions for Length of Last Word.
+Memory Usage: 38.4 MB, less than 82.27% of JavaScript online submissions for Length of Last Word.
+*/
+var lengthOfLastWord = (s) => {
+    let eC = false;                                            // 'em'
+    let count = 0
+    for (let i = s.length - 1; i >= 0; i--) {               // i=4 >= 0 => T
+        if (s[i] === ' ' && eC === true) return count;    // T && T => T => 2
+        else if (s[i] !== ' ') {                            // T
+            eC = true;                                     // 'em'
+            count += 1;
+        }
+    }
+    return count;
+}
+
+
+/*
+ 01234567 8 9
+' fly me '
+ 01234 5
+'He Wo'
+
+*/

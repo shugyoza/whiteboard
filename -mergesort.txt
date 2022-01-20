@@ -1,0 +1,59 @@
+/*
+I: sA1 sA2;
+O: return sA12 in sA1;
+C:
+- sA1.length == m + n;
+- sA2.length == n;
+- 0 <= m || n <= 200;
+- 1 <= m + n <= 200;
+- -10^9 <= num <= 10^9
+Q:
+- what if !Array.isArray
+- what if num is not a num;
+P:
+- 
+*/
+
+/* It breaks when there's a negative number
+var merge = function(nums1, m, nums2, n) {
+    if (m === 0) m += 1;
+    let k = nums1.length - 1;           // k = 0
+    let i = m - 1;                      // i = 0
+    while (nums2.length > 0) {          // 1 > 0 => T
+        let j = nums2.length - 1;       // j = 0
+        if (nums2[j] >= nums1[i]) {     // -1 >= 0 => F
+            nums1[k] = nums2.pop();     // 1
+            // console.log([15, nums1, nums1[i], nums2, nums2.length, nums2[j], k])
+        }
+        else {
+            nums1[k] = nums1[i]         // 3
+            nums1[i] = 0;
+            if (i - 1 > -1) i--;
+            // console.log([22, nums1, nums1[i], nums2, nums2.length, nums2[j], k])
+        }
+        k--;
+    }
+    console.log(nums1)
+    return nums1;
+};
+*/
+
+/* Does not pass
+var merge = function(nums1, m, nums2, n) {
+    let i = m - 1                   // i=-1
+    let j = nums2.length - 1;       // j=-1
+    let k = m + n - 1;              // k=-1
+    while (nums2.length) {          // 0 => F
+        if (nums2[j] > nums1[i]) {  // 1 > 0 => T
+            nums1[k] = nums2.pop(); // 1 
+        }
+        else {
+            nums1[k] = nums1[i]     // 3
+            nums1[i] = 0;
+            i--;
+        }
+        k--;
+    }
+    return nums1;
+};
+*/
