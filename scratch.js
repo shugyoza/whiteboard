@@ -23,10 +23,6 @@ var merge = function(nums1, m, nums2, n) {
     return nums1;
 };
 */
-console.log('first' || 'second');
-console.log('first' || false);
-console.log('prime' || null || 'first')
-
 
 /*
 var merge = function (nums1, m, nums2, n) {
@@ -60,3 +56,6 @@ let n = 6; // 3; // 1
 //               j
 //           0 1 2 = 3
 //  nums2 = []1,2,3
+
+
+console.log([-10,-3,0,5,9].slice(3))

@@ -29,17 +29,3 @@ var maxDepth = function(root) {
     return depth;                                // at the end of looping thru while loops, return the depth
 }
 */
-
-var maxDepth = function(root) {
-    if (!root) return 0;
-    const stk = [];
-    let depth = 0;
-    while (root || stk.length) {
-        depth++;
-        const len = stk.length * 2;
-        for (let i = 0; i < len; i++) {
-            if (stk[i].left) stk.push(stk[i].left);
-            if (stk[i].right) stk.push(stk[i].right);
-        }
-    }
-}
