@@ -41,7 +41,7 @@ P:
 O(2N), s: O(N)
 */
 
-/*
+/* Needs 48 minutes to solve.
 Runtime: 116 ms, faster than 40.32% of JavaScript online submissions for Valid Palindrome.
 Memory Usage: 48.2 MB, less than 6.51% of JavaScript online submissions for Valid Palindrome.
 */
