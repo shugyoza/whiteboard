@@ -58,4 +58,7 @@ let n = 6; // 3; // 1
 //  nums2 = []1,2,3
 
 
-console.log([-10,-3,0,5,9].slice(3))
+// console.log([-10,-3,0,5,9].slice(3))
+let a = {val: '3', left: null, right: null};
+let b = a// {val: '3', left: null, right: null};
+console.log(a == b)
