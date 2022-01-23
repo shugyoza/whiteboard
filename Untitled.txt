@@ -1,0 +1,173 @@
+class Tree {
+  constructor(value, left, right) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+let t = new Tree(1, new Tree(2, new Tree(4, new Tree(8)), new Tree(5))
+
+const inOrderTraversal = (node, cb) => {
+  if (node) {
+    inOrderTraversal(node.left, cb);
+    cb(node.value);
+    inOrderTraversal(node.right,cb);
+  }
+}
+inOrderTraversal(tree, console.log);
+
+const prOT = (node,cb) {
+  if (node) {
+    cb(node.val);
+    prOT(node.left, cb);
+    prOT(node.right, cb)
+  }
+}
+
+////////
+class TreeNode {
+  constructor(key, value = key, parent = null) {
+    this.key = key;
+    this.value = value;
+    this.parent = parent;
+    this.children = []
+  }
+  get isLeaf() {
+    return this.children.length === 0;
+  }
+  get hasChildren() {
+    return !this.isLeaf();
+  }
+}
+
+class Tree {
+  constructor(key, value = key) {
+    this.root = new TreeNode(key, value);
+  }
+  *preOT(node = this.root) {
+    yield node;
+    if (node.children.length) {
+      for (let child of node.children) {
+        yield* this.preOT(child);
+      }
+    }
+  }
+  *postOT(node = this.root) {
+    if (node.children.length) {
+      for (let child of node.children) {
+        yield* this postOT(children);
+      }
+    }
+    yield node;
+  }
+  insert(parentNodeKey, key, value = key) {
+    for (let node of this.preOT()) {
+      if (node.key === parentNodeKey) {
+        node.children.push(new TreeNode(key, value, node));
+        return true;
+      }
+    }
+    return false;
+  }
+  remove(key) {
+    for (let node of this.preOT()) {
+      const filtered = node.children.filter(c => c.key !== key);
+      if (filtered.length !== node.children.length) {
+        node.children = filtered;
+        return true;
+      }
+    }
+    return false;
+  }
+  find(key) {
+    for (let node of this.preOT()) {
+      if (key === node.key) return node;
+      return undefined;
+    }
+  }
+}
+////////
+
+/*
+I: array of nums;
+O: an int, max difference between any two nums in arr;
+C: no method?
+Q:
+- what if arr is not an arr;
+- what if any nums is not a number;
+- what if arr is undefined;
+- what if arr.length == 0;
+P:
+- define an object to check max we could get on each num;
+- do single loop to iterate over the array;
+- if object has no num as the key, create one val key:0, and check/update all vals in that key.
+- at the end do another loop to get max. val we got
+
+{7:6,1:5,5:2,3:3,6:2,4:0} O(1), O(n), O(n), O(2N), O(n)
+ 0 1 2 3 4 5 = 6
+[7,1,5,3,6,4]
+
+*/
+/* Does not work. If sorted descending, we can't make a profit at all.
+var maxProfit = (prices) => {
+  let dif = {};						// {7:6,1:5,5:2,3:3,6:2,4:0}
+  let max;	// => max = 0;					// max=6
+  for (let i = 0; i < prices.length; i++) {		// i=6 < 6 F
+    let num = prices[i];				// 4
+    for (let key in dif) {				// 
+      dif[key] = Math.max(Math.abs(num - key));	// -> Math.max(dif[key], Math.abs(num - key));
+      if (!max || max < dif[key]) max = dif[key];	// max=6
+    }
+    if (!dif.hasOwnProperty(num)) {			// 4 T
+      dif[num] = 0;					// dif[4] = 0
+    }
+  }
+  return max;						// 6
+}
+*/
+/*
+
+ 0 1 2 3 4 5 = 6
+[7,1,5,3,6,4]
+*/
+
+var singleNumber = (nums) => {
+    let chk = {};				// {'4':1}
+    for (let i = 0; i < nums.length; i++) {	// 5 < 5 F
+        let num = nums[i];			// 2
+        if (chk.hasOwnProperty[num]) {		// T
+            delete chk[num];			// d
+        } else if (!chk.hasOwnProperty[num]) {	// T
+            chk[num] = 1;			// chk[2] = 1;
+        }
+    }
+    for (let num in chk) {			// '4':1
+        if (num) return num - 0;		// '4' - 0 = 4
+    }
+}
+
+/*    0 1 2 = 3
+    [ 2,2,1 ]
+     0 1 2 3 4 = 5
+    [4,1,2,1,2]
+*/
+
+const postOT = (root) => {		// [3,1
+  const stack = [],	// [3,1]
+        result = [];			// []
+  while (stack.length) {		// 2 => T
+    while (root) {			// T
+      stack.push(root.right, root);	// [3,1
+      root = root.left;
+    }
+    root = stack.pop();
+    if (root.right && stack[stack.length - 1] === root.right) {
+      stack.pop();
+      stack.push(root);
+      root = root.right;
+    } else {
+      result.push(root);
+      root = null;
+    }
+  }
+}
