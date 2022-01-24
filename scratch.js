@@ -21,26 +21,30 @@ xclTitleToNum('ZZ')     // 702
 xclTitleToNum('AAC')    // 705
 
 function numToXclTitle(colNum) {
-    let base = 26;
-    let ct = 0;
-    for (let i = 1; i < colNum; i *= 26) {
-        ct++;
+    let sum = colNum, base = 26, mult, arr = [], s = '';
+    for (let i = 1; i < sum; i *= base) {
+        arr.push(i)
     }
-    let mult, sum = colNum, char, num;
-    while (ct >= 0) {
-        mult = Math.pow(base, ct);
-        
+    arr[0] = sum % base;
+    for (let j = 0; j < arr.length; j++) {
+        mult = arr[j];
+        let n = (sum % base) * mult;
+        let ascii = n + 64;
+        s = String.fromCharCode(ascii) + s;
+        sum = sum - mult;
     }
+    console.log([arr, s])
+    return s;
 }
 
 
-// numToXclTitle(26)
-// numToXclTitle(51)
-// numToXclTitle(52)
-// numToXclTitle(80)
-// numToXclTitle(676)
-// numToXclTitle(702)
-// numToXclTitle(705)
+numToXclTitle(26)
+numToXclTitle(51)
+numToXclTitle(52)
+numToXclTitle(80)
+numToXclTitle(676)
+numToXclTitle(702)
+numToXclTitle(705)
 
 /*
 function numToXclTitle(colNum) {
