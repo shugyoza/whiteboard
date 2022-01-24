@@ -1,40 +1,51 @@
 
-function xclTitleToNum(str) {
-    let mult = 1, sum = 0;
-    let char, num;
-    for (let i = str.length - 1; i >= 0; i--) {
-        char = str[i].toUpperCase(); // ensure char is uppercased to uniformized
-        num = char.charCodeAt(0) - 64; // ascii code for 'A' is 65. -1 is to represent index-th
-        sum += num * mult; // sum = sum + (num * mult)
-        mult *= 26 // afore-char change every square-times of the char, e.g.: cs[i-1] = cs[i]^2
-    }
-    // console.log([sum, num, sum - num, mult, char]);
-    return sum;
-}
+// function xclTitleToNum(str) {
+//     let mult = 1, sum = 0;
+//     let char, num;
+//     for (let i = str.length - 1; i >= 0; i--) {
+//         char = str[i].toUpperCase(); // ensure char is uppercased to uniformized
+//         num = char.charCodeAt(0) - 64; // ascii code for 'A' is 65. -1 is to represent index-th
+//         sum += num * mult; // sum = sum + (num * mult)
+//         mult *= 26 // afore-char change every square-times of the char, e.g.: cs[i-1] = cs[i]^2
+//     }
+//     // console.log([sum, num, sum - num, mult, char]);
+//     return sum;
+// }
 // console.log('A'.charCodeAt(0))
-xclTitleToNum('Z')      // 26
-xclTitleToNum('AY')     // 51
-xclTitleToNum('AZ')     // 52
-xclTitleToNum('CB')     // 80
-xclTitleToNum('YZ')     // 676
-xclTitleToNum('ZZ')     // 702
-xclTitleToNum('AAC')    // 705
+// xclTitleToNum('Z')      // 26
+// xclTitleToNum('AY')     // 51
+// xclTitleToNum('AZ')     // 52
+// xclTitleToNum('CB')     // 80
+// xclTitleToNum('YZ')     // 676
+// xclTitleToNum('ZZ')     // 702
+// xclTitleToNum('AAC')    // 705
 
-function numToXclTitle(colNum) {
-    let sum = colNum, base = 26, mult, arr = [], s = '';
-    for (let i = 1; i < sum; i *= base) {
-        arr.push(i)
+// function numToXclTitle(colNum) {
+//     let sum = colNum, base = 26, mult, arr = [], s = '';
+//     for (let i = 1; i < sum; i *= base) {
+//         arr.push(i)
+//     }
+//     arr[0] = sum % base;
+//     for (let j = 0; j < arr.length; j++) {
+//         mult = arr[j];
+//         let n = (sum % base) * mult;
+//         let ascii = n + 64;
+//         s = String.fromCharCode(ascii) + s;
+//         sum = sum - mult;
+//     }
+//     console.log([arr, s])
+//     return s;
+// }
+
+const numToXclTitle = (colNum) => {
+    const chars = 'ZABCDEFGHIJKLMNOPQRSTUVWXY';
+    let base = 26;
+    let res = '';
+    for (let i = colNum; i >= 0; i = Math.floor(i / base)) { // 1 >= 0 T
+        let rem = i % base;                  // 1 % 26 = 1
+        res = chars[rem] + res;          // 0 =     'AAC'
     }
-    arr[0] = sum % base;
-    for (let j = 0; j < arr.length; j++) {
-        mult = arr[j];
-        let n = (sum % base) * mult;
-        let ascii = n + 64;
-        s = String.fromCharCode(ascii) + s;
-        sum = sum - mult;
-    }
-    console.log([arr, s])
-    return s;
+    return res;
 }
 
 
