@@ -27,10 +27,19 @@ function reverseList(head) {
 }
 */
 
+// 01/25/2022 08:06	Accepted	134 ms	40.9 MB	javascript
+function reverseList(head, prev = null) {
+    if (!head) return prev; // if there's no head, return previous node, else
+    let next = head.next    // save head.next for next recursion
+    head.next = prev;       // change the head's pointer to point previous
+    return reverseList(next, head) // repeat process
+}
+
+/* does not work
 function reverseList(head, prev = null, next = null) {
     if (!head) return null;
     next = head.next;
     head.next = prev;
     prev = head;
     return reverseList(next, prev, head.next)
-}
+} */
