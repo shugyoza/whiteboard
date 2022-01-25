@@ -1,4 +1,4 @@
-/* Leetcode 20220124
+/* Leetcode 20220124. 1:43 mins.
 205. Isomorphic Strings
 Easy
 
