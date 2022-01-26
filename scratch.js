@@ -81,7 +81,7 @@ function numToXclTitle(colNum) {
 }
 */
 
-
+/* does not work
 const lengthOfLongestSubstring = (s) => {
     let chk = new Set(), count = 0, max = 0;
     for (let i = 0; i < s.length; i++) {		//
@@ -103,7 +103,7 @@ const lengthOfLongestSubstring = (s) => {
     console.log(max)
     return max;
   }
-
+*/
   // lengthOfLongestSubstring('dvdf')
   // lengthOfLongestSubstring('ckilbkd')
   lengthOfLongestSubstring('pwwkew')
