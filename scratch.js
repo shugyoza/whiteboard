@@ -37,25 +37,25 @@
 //     return s;
 // }
 
-const numToXclTitle = (colNum) => {
-    const chars = 'ZABCDEFGHIJKLMNOPQRSTUVWXY';
-    let base = 26;
-    let res = '';
-    for (let i = colNum; i >= 0; i = Math.floor(i / base)) { // 1 >= 0 T
-        let rem = i % base;                  // 1 % 26 = 1
-        res = chars[rem] + res;          // 0 =     'AAC'
-    }
-    return res;
-}
+// const numToXclTitle = (colNum) => {
+//     const chars = 'ZABCDEFGHIJKLMNOPQRSTUVWXY';
+//     let base = 26;
+//     let res = '';
+//     for (let i = colNum; i >= 0; i = Math.floor(i / base)) { // 1 >= 0 T
+//         let rem = i % base;                  // 1 % 26 = 1
+//         res = chars[rem] + res;          // 0 =     'AAC'
+//     }
+//     return res;
+// }
 
 
-numToXclTitle(26)
-numToXclTitle(51)
-numToXclTitle(52)
-numToXclTitle(80)
-numToXclTitle(676)
-numToXclTitle(702)
-numToXclTitle(705)
+// numToXclTitle(26)
+// numToXclTitle(51)
+// numToXclTitle(52)
+// numToXclTitle(80)
+// numToXclTitle(676)
+// numToXclTitle(702)
+// numToXclTitle(705)
 
 /*
 function numToXclTitle(colNum) {
@@ -80,3 +80,30 @@ function numToXclTitle(colNum) {
     return (str);
 }
 */
+
+
+const lengthOfLongestSubstring = (s) => {
+    let chk = new Set(), count = 0, max = 0;
+    for (let i = 0; i < s.length; i++) {		//
+      if (chk.has(s[i])) {
+         max = Math.max(count, max);
+          let c = s[i];
+          i--;
+          while (s[i] != c) {
+              i--;
+          }
+          count = 1;
+          chk = new Set(s[i]);
+      } else if (!chk.hasOwnProperty(s[i])) {
+        chk[s[i]] = i;
+        count += 1;
+      }
+    }
+    max = Math.max(count, max);
+    console.log(max)
+    return max;
+  }
+
+  // lengthOfLongestSubstring('dvdf')
+  // lengthOfLongestSubstring('ckilbkd')
+  lengthOfLongestSubstring('pwwkew')
