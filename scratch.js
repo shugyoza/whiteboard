@@ -107,3 +107,5 @@ const lengthOfLongestSubstring = (s) => {
   // lengthOfLongestSubstring('dvdf')
   // lengthOfLongestSubstring('ckilbkd')
   // lengthOfLongestSubstring('pwwkew')
+console.log('-4193 with'.match(/^-?[0-9]+/)[0] - 0)
+console.log(Math.pow(2, 31))
