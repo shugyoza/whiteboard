@@ -52,7 +52,7 @@ var longestPalindrome = function(s) {
 };
 */
 
-/*
+/* spent 2:04:10
 Runtime: 7242 ms, faster than 5.01% of JavaScript online submissions for Longest Palindromic Substring.
 Memory Usage: 49.1 MB, less than 13.16% of JavaScript online submissions for Longest Palindromic Substring.
 */
