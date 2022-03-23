@@ -1,0 +1,34 @@
+/* LC: https://leetcode.com/problems/contains-duplicate/submissions/
+20220323
+I: array
+O: bool
+C: n <= 2x = T, else F
+typeof nums != array => F
+nums.length != 0 => F
+
+{ '2':2
+
+   i
+ 0 1 2 3 4 = 5
+[2,2,3,1,5]
+*/
+
+/* 12:58
+Runtime: 140 ms, faster than 44.62% of JavaScript online submissions for Contains Duplicate.
+Memory Usage: 51.8 MB, less than 13.66% of JavaScript online submissions for Contains Duplicate.
+*/
+const containsDuplicate = (nums) => {
+  if (!Array.isArray(nums)) return false; 	// T
+  const chk = {};				// {'2':2
+  for (let i = 0; i < nums.length; i++) {	// i = 1 < 5 T
+    let n = nums[i];				// n = 2
+    if (chk[n]) {				// T
+      chk[n] += 1;				// 
+      if (chk[n] === 2) return true;		// T => T
+    } else {					// 
+      chk[n] = 1;
+    }
+  }
+  return false;
+}
+
