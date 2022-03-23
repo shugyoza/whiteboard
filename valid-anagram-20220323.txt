@@ -1,0 +1,52 @@
+/* LC: https://leetcode.com/problems/valid-anagram/submissions/
+20220323, 22:39
+I: s str, t str;
+O: bool === T, else F;
+C:
+- typeof s || t !== string? F
+- if both !.length ? T
+- method ? no
+
+chk = { a:1 d:1
+        i
+     0123 = 4
+s = 'abca'
+
+        j
+t = 'cabd'
+
+
+Runtime: 72 ms, faster than 97.53% of JavaScript online submissions for Valid Anagram.
+Memory Usage: 43 MB, less than 79.08% of JavaScript online submissions for Valid Anagram.
+
+*/
+
+const isAnagram = (s, t) => {
+  if (s.length !== t.length) return false; // F skip
+  const chk = {};			   // { 'a':1,'d':-1
+  for (let i = 0; i < s.length; i++) {     // i = 4 < 4 T
+    let cS = s[i];			   // cS = a
+    if (chk[cS]) {			   // 
+      chk[cS] += 1;
+    } else {				   // T
+      chk[cS] = 1;			   //
+    }
+  }
+  for (let j = 0; j < t.length; j++) {	// j = 4 < 4
+    let cT = t[j];			// cT = d
+    if (chk[cT]) {			// T
+      chk[cT] -= 1;			// 
+      if (chk[cT] === 0) {		// 
+        delete chk[cT];
+      }
+    } else {
+      chk[cT] = -1;
+    }
+  }
+  for (let key in chk) {
+    if (chk[key]) {
+      return false;
+    }
+  }
+  return true;
+}
