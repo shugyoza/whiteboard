@@ -1,0 +1,50 @@
+/* LC https://leetcode.com/problems/valid-anagram/submissions/
+20220314, 50 mins.
+Runtime: 118 ms, faster than 51.10% of JavaScript online submissions for Valid Anagram.
+Memory Usage: 42.9 MB, less than 72.78% of JavaScript online submissions for Valid Anagram.
+*/
+
+/*
+I: str
+O: boolean
+C:
+- can i do it with sort
+- if any is not a str? F
+- 
+
+s: abca
+t: cba
+
+{ a: 1 }
+runtime: O(s+t+) => O(N)
+space: O(N)
+*/
+
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  let chk = {}, c;					// { 'r': 1, 'a': 1, 't': 1}
+  for (let i = 0; i < s.length; i++) {			// i = 3 < 3 T
+    c = s[i];						// c = 't'
+    if (chk[c]) chk[c] += 1;
+    else if (!chk[c]) chk[c] = 1;
+  }
+  for (let j = 0; j < t.length; j++) {			// j = 0 < 3 T
+    c = s[j];						// c = 'c'
+    if (!chk[c]) return false;				// false
+    else if (chk[c] && chk[c] === 1) delete chk[c];
+    else chk[c] -= 1;  
+  }
+  for (let key in chk) {
+    if (chk[key]) return false;
+  }
+  return true;
+}
+
+/*
+         i
+     012 = 3
+s = 'rat'
+        j
+     012 = 3
+t = 'car'
+*/

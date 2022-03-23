@@ -1,0 +1,15 @@
+/*
+LC 20220315: https://leetcode.com/problems/maximum-subarray/submissions/
+Runtime: 131 ms, faster than 34.77% of JavaScript online submissions for Maximum Subarray.
+Memory Usage: 50.2 MB, less than 60.59% of JavaScript online submissions for Maximum Subarray.
+*/
+
+var maxSubArray = function(nums) {
+    let max = nums[0],
+        currMax = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        currMax = Math.max(nums[i], currMax + nums[i]);
+        max = Math.max(max, currMax);
+    }
+    return max;
+};

@@ -1,0 +1,33 @@
+/*
+I: an arr;
+O: a num;
+
+Note:
+- arr.length == 0 return 0;
+- prices typeof != array? return 0
+- price typeof != number? return 0
+
+P:
+- define a trk obj 
+- iterate
+- 
+
+     j           p p[j] - p[i]   profit = 0
+   i
+[7,1,5,3,6,4]
+
+
+High level:
+- Find max price point to sell. For starter, start at the price point end of the week;
+- Find the higher profit. Higher profit obtained by comparing max. price point minus previous buy price vs. max price point minus current buy price. Take whatever higher.
+
+function maxProfit(prices) {
+  let profit = 0;
+  let sell = prices[prices.length - 1];
+  for (let i = prices.length - 2; i >= 0; i--) {
+    sell = Math.max(sell, prices[i]);
+    profit = Math.max(profit, sell - prices[i]);
+  }
+  return profit;
+}
+*/

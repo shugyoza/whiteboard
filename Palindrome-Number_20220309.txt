@@ -1,0 +1,26 @@
+// 20220309. LC easy. If an integer is palindrome? return true. else return false
+// 12 min. 
+// function is wrong => const is right
+// 315 sec, 49mb
+const palindromNum = (num) => {
+  let s = num + '';
+  for (let i = 0, j = s.length - 1; i < s.length; i++, j--) {
+    let nA = s[i];
+    let nB = s[j];
+    if (i >= j) {      // F
+      return true;
+    }
+    if (nA !== nB) {    // T => F
+      return false;
+    }
+  }
+}
+
+/*
+          j
+        i
+        012 = 3
+       '123'
+121 => '121'
+
+*/
