@@ -1,0 +1,36 @@
+/* 20220323, > 24 mins.
+LC: https://leetcode.com/problems/valid-parentheses/submissions/
+Runtime: 76 ms, faster than 67.71% of JavaScript online submissions for Valid Parentheses.
+Memory Usage: 41.9 MB, less than 78.48% of JavaScript online submissions for Valid Parentheses.
+
+I: str of braces/brackets
+O: boolean
+C:
+- !s.length => F
+- typeof s != string F
+- char not of braces? F
+        i
+     0123 = 4
+s = '({})'
+
+s = '({}]'
+      i
+     01 = 2
+s = '()';
+*/
+
+
+const isValid = (s) => {
+  let stk = [];				// [')'
+  for (let i = 0; i < s.length; i++) {	// i = 1 < 2 => T
+    let c = s[i];			// c = ')'
+    if (c === '(') stk.push(')');	// F
+    else if (c === '{') stk.push('}');	// F
+    else if (c === '[') stk.push(']');	// F
+    else {
+      let pair = stk.pop();    		// pair = ')'
+      if (c !== pair) return false;	// F
+    }
+  }
+  return true;
+}
