@@ -1,0 +1,207 @@
+Ref: https://www.youtube.com/watch?v=-AMHUdZc9ss
+
+// does not work
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let sortN = nums.sort((a, b) => a - b)
+  let target = 0;
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (sortN[i] > target) break;
+    if (i > 0 && sortN[i] === sortN[i+1]) continue; // should be ...sortN[i] === sortN[i-1]
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) {
+        res.push([ sortN[i], sortN[j], sortN[k] ]);
+        while (sortN[j] === sortN[j + 1]) j++;
+        while (sortN[k] === sortN[k - 1]) k--;
+        j++;
+        k--;
+      } else if (sum < target) j++;
+      else k--
+    }
+  }
+  return res;
+}
+
+/* 20220325 LC: https://leetcode.com/problems/3sum/submissions/
+Runtime: 120 ms, faster than 97.75% of JavaScript online submissions for 3Sum.
+Memory Usage: 53 MB, less than 48.64% of JavaScript online submissions for 3Sum.
+
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let target = 0;
+  let sortN = nums.sort((a, b) => a - b);
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (sortN[i] > target) break;
+    if (i > 0 && sortN[i] === sortN[i + 1]) continue;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) {
+        res.push([ sortN[i], sortN[j], sortN[k] ]);
+        while (sortN[j] === sortN[j+1]) j++;
+        while (sortN[k] === sortN[k-1]) k--;
+        j++;
+        k--;
+      } else if (sum < target) j++;
+      else k--;
+    }
+  }
+  return res;
+}
+
+/*
+Runtime: 192 ms, faster than 66.93% of JavaScript online submissions for 3Sum.
+Memory Usage: 53 MB, less than 44.74% of JavaScript online submissions for 3Sum.
+*/ 
+
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let target = 0;
+  let sortN = nums.sort((a, b) => a - b);
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (sortN[i] > target) break;
+    if (i > 0 && sortN[i] === sortN[i - 1]) continue;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) {
+        res.push([ sortN[i], sortN[j], sortN[k] ]);
+        while (sortN[j] === sortN[j + 1]) j++;
+        while (sortN[k] === sortN[k - 1]) k--;
+        j++;
+        k--;
+      } else if (sum < target) j++;
+      else k--;
+    }
+  }
+  return res;
+}
+
+
+
+/* ALL OF THIS BELOW DOES NOT WORK!
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let sortN = nums.sort((a, b) => a - b);
+  let target = 0;
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (i > 0 && sortN[i] === sortN[i+1]) i++;
+    if (sortN[i] > target) break;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) res.push([sortN[i], sortN[j], sortN[k]]);
+      while (sortN[j] === sortN[j+1]) j++;
+      while (sortN[k] === sortN[k-1]) k--;
+      j++;
+      k--;
+    } else if (sum < target) {
+      j++;
+    } else {
+      k--;
+    }
+  }
+  return res;
+}
+
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let sortN = nums.sort((a, b) => a - b);
+  let target = 0;
+  for (let i = 0; i < sortN.length - 1; i++) {
+    if (i > 0 && sortN[i] === sortN[i+1]) continue;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) {
+        res.push([sortN[i], sortN[j], sortN[k]]);
+        while (sortN[j] === sortN[j+1]) j++;
+        while (sortN[k] === sortN[k-1]) k--;
+        j++;
+        k++;
+      }
+      else if (sum < target) {
+        j++;
+      } 
+      else k--;
+    }
+  }
+  return res;
+}
+
+function threeSum(nums) {
+  const res = [];
+  let target = 0;
+  if (nums.length < 3) return res;
+  let sortN = nums.sort((a, b) => a - b);
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (i > 0 && sortN[i] === sortN[i+1]) continue;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) {
+        res.push([sortN[i], sortN[j], sortN[k]]);
+        while(sortN[j] === sortN[j+1]) j++;
+	while(sortN[k] === sortN[k-1]) k--;
+        j++;
+        k--;
+      }
+      else if (sum < target) {
+        j++;
+      }
+      else k--;
+    }
+  }
+  return res;
+}
+
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let target = 0;
+  let sortN = nums.sort((a, b) => a - b);
+  for (let i = 0; i < sortN.length - 2; i++) {
+    if (sortN[i] >= target) break;
+    while (sortN[i] === sortN[i+1]) i++;
+    let j = i + 1;
+    let k = sortN.length - 1;
+    while (j < k) {
+      let sum = sortN[i] + sortN[j] + sortN[k];
+      if (sum === target) res.push([sortN[i], sortN[j], sortN[k]);
+      while (sortN[j] === sortN[j+1]) j++;
+      while (sortN[k] === sortN[k-1]) k--
+      j++;
+      k--;
+      else if (sum < target) j++;
+      else k--;
+    }
+  }
+  return res;
+}
+*/
+
+function threeSum(nums) {
+  const res = [];
+  if (nums.length < 3) return res;
+  let sortN = nums.sort((a, b) => a - b)
+  let target = 0;
+  for (let i = 0; i < sortN.length; i++) {
+    if (sortN[i] > target) break;
+    if (i > 0 && sortN[i] === sortN[i-1] continue;
+    let j = i + 1;
+    let k = 
+  }
+}

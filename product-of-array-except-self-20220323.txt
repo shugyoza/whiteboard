@@ -1,0 +1,46 @@
+/* LC: https://leetcode.com/problems/product-of-array-except-self/submissions/
+20220323.
+
+Runtime: 137 ms, faster than 61.78% of JavaScript online submissions for Product of Array Except Self.
+Memory Usage: 56 MB, less than 23.35% of JavaScript online submissions for Product of Array Except Self.  
+
+res = [2,3,8,3]
+
+     k
+     0 1 2 3 = 4
+i = [1,2,3,4]
+o = [24,12,8,6]
+*/
+/* DOES NOT WORK
+function productExceptSelf(nums) {
+  const res = [];
+  for (let i = 0; i < nums.length; i++) {
+    res.push(1);
+  }
+  for (let j = 1; j < nums.length; j++) {
+    let n = nums[j];
+    res[j-1] = res[j-1] * n;
+  }
+  for (let k = nums.length - 2; k >= 0; k--) {
+    let z = nums[k];
+    res[k+1] = res[k+1] * z;
+  }
+  return res;
+} */
+
+function productExceptSelf(nums) {
+  const res = [];
+  let tmp = 1;
+  for (let i = 0; i < nums.length; i++) {
+    let a = nums[i];
+    res.push(tmp);
+    tmp = tmp * a;
+  }
+  tmp = 1;
+  for (let j = nums.length - 1; j >= 0; j--) {
+    let b = nums[j];
+    res[j] = res[j] * tmp;
+    tmp = tmp * b;
+  }
+  return res;
+}

@@ -1,0 +1,16 @@
+/* LC: https://leetcode.com/problems/merge-intervals/submissions/
+20220325
+Runtime: 174 ms, faster than 35.14% of JavaScript online submissions for Merge Intervals.
+Memory Usage: 51.5 MB, less than 17.36% of JavaScript online submissions for Merge Intervals. */
+
+function merge(intervals) {
+  let sortI = intervals.sort((a, b) => a[0] !== b[0]? (a[0] - b[0]) : (a[1] - b[1]));
+  let res = [ [...sortI[0]] ];
+  for (let i = 1; i < sortI.length; i++) {
+    let subA = sortI[i];
+    if (subA[0] <= res[res.length-1][1]) { // must be <= instead of < to accommodate [1,4],[4,5] => [1,5]
+      res[res.length-1] = [ Math.min(...subA, ...res[res.length-1]), Math.max(...subA, ...res[res.length-1])  ]
+    } else res.push(subA);
+  }
+ return res;
+}
