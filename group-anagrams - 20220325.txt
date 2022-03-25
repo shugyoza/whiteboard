@@ -1,0 +1,93 @@
+/* LC: https://leetcode.com/problems/group-anagrams/submissions/
+20220325 1:38, not in plain text.
+
+first iteration on the array of strs
+obj = { 
+  'a': set ['eat', 'tea', 'ate', 'tan', 'nat', 'bat'],
+  't': set ['eat', 'tea', 'ate', 'tan', 'nat', 'bat'],
+  'e': set ['eat', 'tea', 'ate'],
+  'n': set ['tan', 'nat'],
+  'b': set ['bat']
+}
+strs.length ?
+second iteration:
+- count = strs.length;
+- let tmp = Object.values(obj) => [ ] .map ((set) => [...set]) . sort((a, b) => a.length - b.length)
+- const res = [];
+- for loop iterate through res.
+   - res.push(subA)
+   - count -= subA.length
+   - if (count === 0) return res;
+*/
+
+/* Spinned from Alfredo's
+Runtime: 108 ms, faster than 97.44% of JavaScript online submissions for Group Anagrams.
+Memory Usage: 52 MB, less than 90.81% of JavaScript online submissions for Group Anagrams.
+20220325, 1:38
+*/
+/*
+const groupAnagrams = (strs) => {
+    const strsSorted = strs.map((word) => word.split('').sort().join(''));
+    const hash = {};
+    for (let i = 0; i < strs.length; i++) {
+        let key = strsSorted[i];
+        let word = strs[i];
+        if (!hash[key]) hash[key] = [word];
+        else hash[key].push(word);
+    }
+    return Object.values(hash)
+} */
+
+
+/* Does not work on empty string
+var groupAnagrams = function(strs) {
+    const obj = {};
+    for (let i = 0; i < strs.length; i++) {
+        let s = strs[i];
+        for (let j = 0; j < s.length; j++) {
+            let c = s[j];
+            if (obj[c]) {
+                if (!s.length) obj[''].add('');
+                else obj[c].add(s);
+            } else if (!obj[c]) {
+                let newSet = new Set();
+                if (!s.length) obj[''] = newSet.add('');
+                else obj[c] = newSet.add(s);
+            }
+        }
+    }
+    let count = strs.length;
+    let tmp = Object.values(obj).map((set) => [...set]).sort((a, b) => a.length - b.length);
+    const res = [];
+    for (let k = 0; k < tmp.length; k++) {
+        let sub = tmp[k];
+        res.push(sub);
+        count -= sub.length;
+        if (count === 0) return res;
+    }
+    return res;
+}; */
+
+/* Alfredo's 
+Runtime: 116 ms, faster than 93.24% of JavaScript online submissions for Group Anagrams.
+Memory Usage: 53.5 MB, less than 50.31% of JavaScript online submissions for Group Anagrams.*/
+var groupAnagrams = function(strs) {
+    // get an array of sorted words
+    const sortedStr = strs.map(word => word.split("").sort().join(""));
+    // define an object to contain tmp result
+    const hash = {};
+    // for index in strs
+    for(let str in strs){
+        // if hash has no sortedStr[1] then create that word as a key 'aet'
+        if(!hash[sortedStr[str]]){
+            hash[sortedStr[str]] = [strs[str]]
+            // console.log([sortedStr[str]], [strs[str]]);
+        }else{
+            hash[sortedStr[str]].push(strs[str]); 
+        }
+    }
+    // console.log(sortedStr, strs)
+    return Object.values(hash);
+};
+
+// groupAnagrams([''])
