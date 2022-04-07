@@ -1,0 +1,26 @@
+/* 20220407. 5:00: https://leetcode.com/problems/valid-anagram/submissions/
+Runtime: 76 ms, faster than 94.65% of JavaScript online submissions for Valid Anagram.
+Memory Usage: 43 MB, less than 83.58% of JavaScript online submissions for Valid Anagram.
+*/
+
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  let chk = {};
+  for (let i = 0; i < s.length; i++) {
+    let a = s[i];
+    if (chk[a]) chk[a]++;
+    else chk[a] = 1;
+  }
+  for (let j = 0; j < t.length; j++) {
+    let b = t[j];
+    if (chk[b]) {
+      chk[b]--;
+      if (chk[b] === 0) delete chk[b];
+    }
+    else chk[b] = -1;
+  }
+  for (let key in chk) {
+    if (chk[key]) return false;
+  }
+  return true;
+}

@@ -1,0 +1,17 @@
+/* 20220407. 3.53 mins. https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+Runtime: 72 ms, faster than 98.43% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+Memory Usage: 52 MB, less than 33.01% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+
+*/
+
+
+function maxProfit(prices) {
+  let sell = prices[prices.length - 1];
+  let profit = 0;
+  for (let i = prices.length - 2; i >= 0; i--) {
+    let currentPrice = prices[i];
+    sell = Math.max(sell, currentPrice);
+    profit = Math.max(profit, sell - currentPrice);
+  }
+  return profit;
+}
