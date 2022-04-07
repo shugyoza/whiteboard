@@ -1,0 +1,14 @@
+/* 20220407: https://leetcode.com/problems/contains-duplicate/submissions/
+Runtime: 152 ms, faster than 34.82% of JavaScript online submissions for Contains Duplicate.
+Memory Usage: 51.6 MB, less than 23.84% of JavaScript online submissions for Contains Duplicate.
+*/
+
+function containsDuplicate(nums) {
+  let chk = {};
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+    if (chk[n]) return true;
+    else chk[n] = 1;
+  }
+  return false;
+}
