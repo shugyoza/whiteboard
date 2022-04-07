@@ -1,0 +1,18 @@
+/* LC: https://leetcode.com/problems/two-sum/submissions/
+20220407
+Runtime: 82 ms, faster than 79.96% of JavaScript online submissions for Two Sum.
+Memory Usage: 44.4 MB, less than 16.13% of JavaScript online submissions for Two Sum.
+*/
+function twoSum(nums, target) {
+
+  let chk = {};
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+    let diff = target - n;
+    if (chk[n]) {
+      return [chk[n][1], i];
+    }
+    else chk[diff] = [n, i];
+  }
+  return [];
+}

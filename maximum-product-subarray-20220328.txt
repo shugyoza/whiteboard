@@ -1,0 +1,47 @@
+Runtime: 91 ms, faster than 49.65% of JavaScript online submissions for Maximum Product Subarray.
+Memory Usage: 44 MB, less than 28.94% of JavaScript online submissions for Maximum Product Subarray.
+var maxProduct = function(nums) {
+    let min = 1, max = 1, res = -Number.MAX_VALUE; 
+    for (let n of nums) {                           // n = 4
+      const prevMin = min;                          // prevMin = -12
+      min = Math.min(n, min * n, max * n);          // min = (4, -12 * 4, -2 * 4) = -48
+      max = Math.max(n, prevMin * n, max * n);      // max = (4, -12 * 4, -2 * 4) = 4
+      res = Math.max(res, max);                     // res = (6,4) = 6
+    }
+    return res;
+}; */
+
+const maxProduct = function(nums) {
+  let min = 1, max = 1, res = -Number.MAX_VALUE;
+  for (let n of nums) {
+    const prevMin = min;
+    min = Math.min(n, min * n, max * n);
+    max = Math.max(n, prevMin * n, max * n);
+    res = Math.max(res, max);
+  }
+  return res;
+}
+
+const maxProduct = function(nums) {
+  let min = 1, max = 1, res = -Number.MAX_VALUE;
+  for (let n of nums) {
+    const prevMin = min;
+    min = Math.min(n, min * n, max * n);
+    max = Math.max(n, prevMin * n, max * n);
+    res = Math.max(res, max);
+  }
+  return res;
+}
+
+const maxProduct = function(nums) {
+  let min = 1;
+  let max = 1;
+  let res = -Number.MAX_VALUE;
+  for (let n of nums) {
+    let prevMin = min;
+    min = Math.min(n, min * n, max * n);
+    max = Math.max(n, prevMin * n, max * n);
+    res = Math.max(res, max);
+  }
+  return res;
+}

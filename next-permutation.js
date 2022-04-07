@@ -123,3 +123,122 @@ const nextPermutation = (nums) => {
 // nextPermutation([0,1,2,5,3,3,0]) // 0 1 3 0 2 3 5
 //               0 1 3 0 2 3 5
 //                       i x
+
+const permute = (nums) => {
+    const result = [],
+          q = [ [[], [...nums]] ];
+    while (q.length) {
+        let [ currentSequence, availableNumbers ] = q.shift();
+        if (!availableNumbers.length) {
+            result.push(currentSequence);
+            continue;
+        }
+        for (let i = 0; i < availableNumbers.length; i++) {
+            let n = availableNumbers[i];
+            q.push([ [...currentSequence, n], availableNumbers.slice(0, i).concat(availableNumbers.slice(i + 1)) ])
+        }
+    }
+    return result;
+}
+
+
+
+
+
+
+
+
+/////
+* Complete the 'checkDivisibility' function below.
+ *
+ * The function is expected to return a STRING_ARRAY.
+ * The function accepts STRING_ARRAY arr as parameter.
+ */
+/*
+I: array of Int
+O: array of str 'YES' or 'NO'
+C: 'YES' if there's any divisible by 8. No if there's none.
+*/
+// helper 1 turn a num into an array of sequence int
+function nToArr(num) {
+    const result = [];
+    let i = num;
+    let mult = 10;
+    while (i > 0) {
+        // grab the last digit
+        let n = i % mult;
+        // decrement, reassign new value into i
+        i = Math.floor(i / mult);
+        // put into array with .push O(1)
+        result.push(n);
+    }
+    return result.reverse(); // O(N) still faster than .unshift for every iteration
+}
+
+// helper 2 get all the permutation and evaluate against mod
+function permuteAndMod(nums, mod = 8) {
+    // define the result array;
+    const result = [];
+    // create a 'node'
+    let q = [ [ [], [...nums] ]];
+    // while q still has length
+    while (q.length) {
+        // take out the 'node'
+        let [ currentSequence, availableNumbers ] = q.shift();
+        // if all the available numbers have been used
+        if (!availableNumbers.length) {
+            // convert it into an integer by .join and subtract with zero
+            let n = currentSequence.join('') - 0;
+            // check if % mod === true, if yes, return 'YES'
+            if (n % mod === 0) return 'YES';
+            // continue with next iteration
+            continue;
+        }
+        // if there is still slots to fill
+        for (let i = 0; i < availableNumbers.length; i++) {
+            let n = availableNumbers[i];
+            // push into the q, array with added int, and array of reduced available numbers choice.
+            q.push([ [...currentSequence, n], availableNumbers.slice(0, i).concat(availableNumbers.slice(i + 1)) ])
+        }
+    }
+    // if nothing % mod returns true, then everything is false
+    return 'NO';
+}
+
+function checkDivisibility(arr, mod = 8) {
+    if (!Array.isArray(arr) || !arr.length) return false
+    // Write your code here
+    // define result var
+    const result = []
+    // start loop through the arr
+    for (let i = 0; i < arr.length; i++) {
+        let n = arr[i];
+        // if n % mod === 0
+        if (n % mod === 0) {
+            // just push 'YES' into result array
+            result.push('YES');
+            // and go with next iteration, no need to permute anymore
+            continue;
+        } 
+        else {
+            if (n < mod) result.push('NO');
+            else {
+                // convert the num into an arr, sequence of int
+                let arrN = nToArr(n);
+                // let arrN = ('' + n).split(''); // does not affect performance than callback
+                // invoke helper and push it into result
+                result.push(permuteAndMod(arrN))
+            }
+        } 
+    }
+    // console.log(arr)
+    // return the array of result
+    return result;
+}
+
+
+/*
+Enter your query here.
+Please append a semicolon ";" at the end of the query
+*/
+SELECT STUDENT_NAME, MAJOR_NAME FROM STUDENTS JOIN REGISTER ON REGISTER.STUDENT_ID = STUDENTS.STUDENT_ID JOIN MAJORS ON REGISTER.MAJOR_ID = MAJORS.MAJOR_ID LIMIT 20;
