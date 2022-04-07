@@ -1,0 +1,71 @@
+/* https://leetcode.com/problems/valid-parentheses/submissions/
+Runtime: 76 ms, faster than 65.72% of JavaScript online submissions for Valid Parentheses.
+Memory Usage: 42.3 MB, less than 60.91% of JavaScript online submissions for Valid Parentheses.
+*/
+function isValid(s) {
+  if (s.length % 2 !== 0) return false;
+  let stk = [];
+  for (let i = 0; i < s.length; i++) {
+    let c = s[i];
+    if (c === '[' || c === '(' || c === '{') {
+      switch(c) {
+        case '(': stk.push(')');
+          break;
+        case '[': stk.push(']');
+          break;
+        case '{': stk.push('}');
+          break;
+      }
+    } else {
+      let popped = stk.pop();
+      if (c !== popped) return false;
+    }
+  }
+  return !stk.length;
+} 
+
+function isValid(s) {
+  let stk = [];
+  for (let i = 0; i < s.length; i++) {
+    let c = s[i];
+    if (c === '[' || c === '(' || c === '{') {
+      switch(c) {
+        case '(': stk.push(')');
+          break;
+        case '[': stk.push(']');
+          break;
+        case '{': stk.push('}');
+          break;
+      }
+    } else {
+      let popped = stk.pop();
+      if (c !== popped) return false;
+    }
+  }
+  return true; // WRONG!
+}
+
+/* 
+Runtime: 133 ms, faster than 8.26% of JavaScript online submissions for Valid Parentheses.
+Memory Usage: 41.7 MB, less than 94.74% of JavaScript online submissions for Valid Parentheses.
+*/
+function isValid(s) {
+  if (s.length % 2 !== 0) return false;
+  let stk = [];
+  for (let i = 0; i < s.length; i++) {
+    let c = s[i];
+    switch(c) {
+      case '(': stk.push(')');
+        break;
+      case '[': stk.push(']');
+        break;
+      case '{': stk.push('}');
+        break;
+      default: {
+        let popped = stk.pop();
+        if (c !== popped) return false;
+      }
+    }
+  }
+  return !stk.length;
+} 
