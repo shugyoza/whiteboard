@@ -1,0 +1,37 @@
+function productExceptSelf(nums) {
+  let res = new Array(nums.length).fill(1);
+  let m = 1;
+  for (let i = 0; i < nums.length - 1; i++) {
+    let n = nums[i];
+    m = m * n;
+    res[n + 1] = res[n + 1] * m; // WRONG! use i! not n!
+  }
+  m = 1;
+  for (let j = nums.length - 1; j > 0; j--) {
+    let x = nums[j];
+    m = m * x;
+    res[x - 1] = res[x - 1] * m; // WRONG! use j! not x!
+  }
+  return res;
+}
+
+/* LC: 20220407. 10:17. https://leetcode.com/problems/product-of-array-except-self/submissions/
+Runtime: 117 ms, faster than 77.76% of JavaScript online submissions for Product of Array Except Self.
+Memory Usage: 54.7 MB, less than 48.89% of JavaScript online submissions for Product of Array Except Self.
+*/
+function productExceptSelf(nums) {
+  let res = new Array(nums.length).fill(1);
+  let m = 1;
+  for (let i = 0; i < nums.length - 1; i++) {
+    let n = nums[i];
+    m = m * n;
+    res[i + 1] = res[i + 1] * m;
+  }
+  m = 1;
+  for (let j = nums.length - 1; j > 0; j--) {
+    let x = nums[j];
+    m = m * x;
+    res[j - 1] = res[j - 1] * m;
+  }
+  return res;
+}
