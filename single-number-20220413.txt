@@ -1,0 +1,17 @@
+/* https://leetcode.com/problems/single-number/submissions/
+20220413. 08:24.84
+Runtime: 77 ms, faster than 81.43% of JavaScript online submissions for Single Number.
+Memory Usage: 48.6 MB, less than 11.79% of JavaScript online submissions for Single Number.
+*/
+function singleNumber(nums) {
+    let chk = {};
+    for (let i in nums) {
+        let n = nums[i];
+        if (!chk[n]) chk[n] = true;
+        else delete chk[n];
+    }
+    for (let key in chk) {
+        if (chk[key]) return key - 0;
+    }
+    return false;
+}

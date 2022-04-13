@@ -1,0 +1,64 @@
+/* 20220412. less than 5 minutes
+https://leetcode.com/problems/maximum-depth-of-binary-tree/submissions/
+
+Runtime: 74 ms, faster than 79.99% of JavaScript online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 44.8 MB, less than 92.35% of JavaScript online submissions for Maximum Depth of Binary Tree.
+*/
+
+function maxDepth(root) {
+    if (!root) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+
+const maxDepth = (root) => {
+  if (!root) return 0;
+  const q = [root];
+  let depth = 0;
+  while (q.length) {
+    const len = q.length;
+    for (let i = 0; i < len; i++) {
+      let node = q.shift();
+      if (node.left) q.push(node.left);
+      if (node.right) q.push(node.right);
+    }
+    depth++;
+  }
+  return depth;
+}
+
+const maxDepth = (root) => {
+  if (!root) return 0;
+  const q = [root];
+  let depth = 0;
+  while (q.length) {
+    let len = q.length;
+    for (let i = 0; i < len; i++) {
+      let node = q.shift();
+      if (node.left) q.push(node.left);
+      if (node.right) q.push(node.right);
+    }
+    depth++;
+  }
+  return depth;
+}
+
+/* Runtime: 70 ms, faster than 86.45% of JavaScript online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 46.3 MB, less than 6.62 */
+
+const maxDepth = (root) => {
+  if (!root) return 0;
+  let stk1 = [root];
+  let stk2 = [];
+  let depth = 0;
+  while (stk1.length) {
+    let node = stk1.pop();
+    if (node.left) stk2.push(node.left);
+    if (node.right) stk2.push(node.right);
+    if (!stk1.length) {
+      depth++;
+      stk1 = [...stk2];
+      stk2 = [];
+    }
+  }
+  return depth;
+}
