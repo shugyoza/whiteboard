@@ -1,3 +1,62 @@
+/* LC 20220414. 09:55.58
+Runtime: 60 ms, faster than 94.35% of JavaScript online submissions for Valid Parentheses.
+Memory Usage: 42.2 MB, less than 69.64% of JavaScript online submissions for Valid Parentheses.
+
+I: str;
+O: bool
+C: 
+- what if empty str? false
+
+[')',]    '}' != ']' return false
+    
+       
+   i
+ 0123 = 4
+'([})'
+*/
+
+function isValid(s) {
+  if (s.length % 2 !== 0) return false;
+  let stk = [];				// [')']      ']' !== '}'
+  for (let i = 0; i < s.length; i++) {	// i = 2 < 4 T
+    let c = s[i];			// '['
+    if (c === '(') stk.push(')');		
+    else if (c === '{') stk.push('}');
+    else if (c === '[') stk.push(']');		
+    else {
+      let popped = stk.pop();
+      if (c !== popped) return false;
+    }
+  }
+  return !stk.length;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 20220323, > 24 mins.
 LC: https://leetcode.com/problems/valid-parentheses/submissions/
 Runtime: 76 ms, faster than 67.71% of JavaScript online submissions for Valid Parentheses.
