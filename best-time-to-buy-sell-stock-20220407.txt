@@ -1,3 +1,47 @@
+/*
+i: arr
+o: num = 0, max diff between prev n and later n
+c:
+
+- iterate through all the n in arr backward;
+- define var to track max sell price;
+- define var to track max profit
+
+ i       
+ 0 1 2 3 4 = 5	sell = 6 maxprofit 4
+[3,5,2,6,2]
+*/
+// 20220414 16:18.21
+// Runtime: 92 ms, faster than 77.59% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+// Memory Usage: 52 MB, less than 24.60% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+
+function maxProfit(prices) {
+  let sell = prices[prices.length - 1];			// sell = 6
+  let maxProfit = 0;					// mxP	= 4
+  for (let i = prices.length - 2; i >= 0; i--) {	// i = -1 >= 0 T
+    let price = prices[i];				// price = 3
+    let currentProfit = sell - price;			// currPro = 3
+    sell = Math.max(sell, price);			// sell = 6
+    maxProfit = Math.max(maxProfit, currentProfit);	// maxPro = 4
+  }
+  return maxProfit // 4;
+}
+
+// 20220414
+// Runtime: 67 ms, faster than 99.46% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+// Memory Usage: 51.9 MB, less than 46.00% of JavaScript online submissions for Best Time to Buy and Sell Stock.
+function maxProfit(prices) {
+    let sell = prices[prices.length - 1];
+    let maxProfit = 0;
+    for (let i = prices.length - 2; i >= 0; i--) {
+        let price = prices[i];
+        let currentProfit = sell - price;
+        sell = (price >= sell) ? price : sell;
+        maxProfit = (maxProfit >= currentProfit) ? maxProfit : currentProfit;
+    }
+    return maxProfit;
+}
+
 /* 20220407. 3.53 mins. https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
 Runtime: 72 ms, faster than 98.43% of JavaScript online submissions for Best Time to Buy and Sell Stock.
 Memory Usage: 52 MB, less than 33.01% of JavaScript online submissions for Best Time to Buy and Sell Stock.
