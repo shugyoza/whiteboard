@@ -1,3 +1,63 @@
+/* 20220414 13:49.57
+Runtime: 87 ms, faster than 81.45% of JavaScript online submissions for Maximum Subarray.
+Memory Usage: 50.7 MB, less than 31.90% of JavaScript online submissions for Maximum Subarray.
+
+I: arr;
+O: int;
+C: 
+- Array.isArray ?
+- typeof  num !== 'number' ?
+// currentSum
+// maxSum
+// iterate through all n in nums;
+// 
+currSum = curSum v. n = 5 v 6 
+max = maxSum v curium = -2 v 1 => 1
+
+        i
+  0 1 2 3 = 4
+[-2,1,5,-2]
+
+*/
+
+function maxSubArray(nums) {
+  let curSum = nums[0];			  // curSum = 6
+  let maxSum = nums[0];			  // maxSum = 6
+  for (let i = 1; i < nums.length; i++) { // i = 3 < 4 T
+    let n = nums[i];			  // n = -2
+    curSum = Math.max(n + curSum, n);	  // -2 v 4 => 4
+    maxSum = Math.max(maxSum, curSum);	  // 4 v 6 => 6
+  }
+  return maxSum;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* LC: https://leetcode.com/problems/maximum-subarray/submissions/
 20220323 25:35
 
