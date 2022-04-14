@@ -9,6 +9,7 @@ s.length === t.length? no => false
 
 {t:1,c:-1}
 */
+// 20220414 17:09.22
 // Runtime: 91 ms, faster than 77.44% of JavaScript online submissions for Valid Anagram.
 // Memory Usage: 42.7 MB, less than 87.59% of JavaScript online submissions for Valid Anagram.
 
