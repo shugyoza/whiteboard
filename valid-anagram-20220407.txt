@@ -1,3 +1,64 @@
+/*
+       i
+     012
+s = 'rat'
+t = 'tar'
+       j
+
+s.length === t.length? no => false
+
+{t:1,c:-1}
+*/
+// Runtime: 91 ms, faster than 77.44% of JavaScript online submissions for Valid Anagram.
+// Memory Usage: 42.7 MB, less than 87.59% of JavaScript online submissions for Valid Anagram.
+
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  let reg = {};				// {
+  for (let i = 0; i < s.length; i++) {	// i = 3 < 3 F
+    let cS = s[i];			// cS = 't'
+    if (reg[cS]) reg[cS] += 1;		// 
+    else reg[cS] = 1;			// 
+  }
+  for (let j = 0; j < t.length; j++) {	// j = 3 < 3 F
+    let cT = t[j];			// cT = 'a\r'
+    if (reg[cT]) {			
+      reg[cT] -= 1;
+      if (reg[cT] === 0) delete reg[cT];
+    } else reg[cT] = -1;		// 
+  }
+  for (let key in reg) {
+    if (reg[key]) return false;
+  }
+  return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 20220407. 5:00: https://leetcode.com/problems/valid-anagram/submissions/
 Runtime: 76 ms, faster than 94.65% of JavaScript online submissions for Valid Anagram.
 Memory Usage: 43 MB, less than 83.58% of JavaScript online submissions for Valid Anagram.
