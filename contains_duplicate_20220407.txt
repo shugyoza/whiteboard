@@ -1,3 +1,81 @@
+// 20220414 9:47:59
+// Runtime: 102 ms, faster than 75.04% of JavaScript online submissions for Contains Duplicate.
+// Memory Usage: 51.7 MB, less than 19.57% of JavaScript online submissions for Contains Duplicate.
+function containsDuplicate(nums) {
+  let obj = {};				// {'1':true, '2':true, '3':true, '4':true}
+  for (let i = 0; i < nums.length; i++) {	// i = 4 < 5 T
+    let n = nums[i];				// n = 3
+    if (obj[n]) return true;			// skip
+    obj[n] = true				// 
+  }
+  return false;
+}
+
+// 20220414
+// Runtime: 99 ms, faster than 77.67% of JavaScript online submissions for Contains Duplicate.
+// Memory Usage: 50.4 MB, less than 79.19% of JavaScript online submissions for Contains Duplicate.
+function containsDuplicate(nums) {
+    let set = new Set();
+    for (let i = 0; i < nums.length; i++) {
+        let n = nums[i]
+        if (set.has(n)) return true;
+        set.add(n);
+    }
+    return false
+}
+
+
+
+/*
+I: arr;
+O: bool
+C: any 2 repeat of el? T : F
+- what if is not arr? what to return
+- what if el is not num?
+- is arr sorted?
+
+{'1':true,'2':true,'3':true,'4':true} => true
+         i
+ 0 1 2 3 4 = 5
+[1,2,3,4,3]
+*/
+
+function containsDuplicate(nums) {
+  let obj = {};				// {'1':true, '2':true, '3':true, '4':true}
+  for (let i = 0; i < nums.length; i++) {	// i = 4 < 5 T
+    let n = nums[i];				// n = 3
+    if (obj[n]) return true;			// skip
+    obj[n] = true				// 
+  }
+  return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 20220407: https://leetcode.com/problems/contains-duplicate/submissions/
 Runtime: 152 ms, faster than 34.82% of JavaScript online submissions for Contains Duplicate.
 Memory Usage: 51.6 MB, less than 23.84% of JavaScript online submissions for Contains Duplicate.
