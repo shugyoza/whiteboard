@@ -1,3 +1,62 @@
+/*
+I: arr, num;
+O: arr of i of elements that sums up to target;
+C: 
+- What if the number is not a typeof number?
+- What if array is not an array?
+P:
+*/
+
+// 20220414: 9:36.66
+// Runtime: 80 ms, faster than 81.80% of JavaScript online submissions for Two Sum.
+// Memory Usage: 45 MB, less than 10.68% of JavaScript online submissions for Two Sum.
+function twoSum(nums, target) {
+  // define a hash obj to track every num that was visited in the nums
+  let hash = {};
+  // iterate through all the num in nums
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i]
+    // check whether num is already a key in hash
+    // if it's already a key? return [idx, hash[num][1]]
+    if (hash[n]) return [i, hash[n][1]];
+    // else if it's not a key in nums ? 
+    else {
+      // have a variable diff with value target = num
+      let diff = target - n;
+      // have that diff as a key in nums, with value [num, idx]
+      hash[diff] = [n, i];
+    }
+  }
+  return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* LC: https://leetcode.com/problems/two-sum/submissions/
 20220407
 Runtime: 82 ms, faster than 79.96% of JavaScript online submissions for Two Sum.
