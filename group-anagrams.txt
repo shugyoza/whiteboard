@@ -1,0 +1,15 @@
+20220414 16:03.30 without explaining.
+https://leetcode.com/problems/group-anagrams/
+Runtime: 133 ms, faster than 84.72% of JavaScript online submissions for Group Anagrams.
+Memory Usage: 53.2 MB, less than 69.66% of JavaScript online submissions for Group Anagrams.
+
+
+function groupAnagrams(strs) {
+  let set = {};
+  for (let i = 0; i < strs.length; i++) {
+    let anaS = strs[i].split('').sort().join('');
+    if (set[anaS]) set[anaS].push(strs[i]);
+    else set[anaS] = [strs[i]];
+  }
+  return Object.values(set);
+}
